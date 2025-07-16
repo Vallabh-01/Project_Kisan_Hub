@@ -1,0 +1,1066 @@
+[
+  {
+    "District": "Ahmednagar",
+    "Mandi Name": "Ahmednagar APMC",
+    "Commodity": "Onion",
+    "Variety": "Lal (Red)",
+    "Prices": {
+      "Jul 16": 1850,
+      "Jul 15": 1800,
+      "Jul 14": 1780,
+      "Jul 13": 1750,
+      "Jul 12": 1760,
+      "Jul 11": 1740
+    }
+  },
+  {
+    "District": "Ahmednagar",
+    "Mandi Name": "Rahuri APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4520,
+      "Jul 15": 4500,
+      "Jul 14": 4480,
+      "Jul 13": 4510,
+      "Jul 12": 4490,
+      "Jul 11": 4470
+    }
+  },
+  {
+    "District": "Ahmednagar",
+    "Mandi Name": "Sangamner APMC",
+    "Commodity": "Pomegranate",
+    "Variety": "Bhagwa",
+    "Prices": {
+      "Jul 16": 8400,
+      "Jul 15": 8500,
+      "Jul 14": 8550,
+      "Jul 13": 8480,
+      "Jul 12": 8520,
+      "Jul 11": 8500
+    }
+  },
+  {
+    "District": "Akola",
+    "Mandi Name": "Akola APMC",
+    "Commodity": "Cotton",
+    "Variety": "Long Staple",
+    "Prices": {
+      "Jul 16": 7250,
+      "Jul 15": 7200,
+      "Jul 14": 7180,
+      "Jul 13": 7150,
+      "Jul 12": 7160,
+      "Jul 11": 7140
+    }
+  },
+  {
+    "District": "Akola",
+    "Mandi Name": "Murtizapur APMC",
+    "Commodity": "Tur (Arhar)",
+    "Variety": "Red",
+    "Prices": {
+      "Jul 16": 9850,
+      "Jul 15": 9800,
+      "Jul 14": 9750,
+      "Jul 13": 9780,
+      "Jul 12": 9760,
+      "Jul 11": 9730
+    }
+  },
+  {
+    "District": "Akola",
+    "Mandi Name": "Telhara APMC",
+    "Commodity": "Gram (Chana)",
+    "Variety": "Desi",
+    "Prices": {
+      "Jul 16": 5380,
+      "Jul 15": 5400,
+      "Jul 14": 5420,
+      "Jul 13": 5390,
+      "Jul 12": 5410,
+      "Jul 11": 5400
+    }
+  },
+  {
+    "District": "Amravati",
+    "Mandi Name": "Amravati APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4480,
+      "Jul 15": 4450,
+      "Jul 14": 4430,
+      "Jul 13": 4460,
+      "Jul 12": 4440,
+      "Jul 11": 4420
+    }
+  },
+  {
+    "District": "Amravati",
+    "Mandi Name": "Dhamangaon APMC",
+    "Commodity": "Orange",
+    "Variety": "Nagpur Mandarin",
+    "Prices": {
+      "Jul 16": 3250,
+      "Jul 15": 3200,
+      "Jul 14": 3180,
+      "Jul 13": 3150,
+      "Jul 12": 3170,
+      "Jul 11": 3140
+    }
+  },
+  {
+    "District": "Amravati",
+    "Mandi Name": "Warud APMC",
+    "Commodity": "Cotton",
+    "Variety": "H-4",
+    "Prices": {
+      "Jul 16": 7120,
+      "Jul 15": 7100,
+      "Jul 14": 7080,
+      "Jul 13": 7050,
+      "Jul 12": 7060,
+      "Jul 11": 7040
+    }
+  },
+  {
+    "District": "Aurangabad",
+    "Mandi Name": "Aurangabad APMC",
+    "Commodity": "Maize",
+    "Variety": "Hybrid",
+    "Prices": {
+      "Jul 16": 2110,
+      "Jul 15": 2100,
+      "Jul 14": 2090,
+      "Jul 13": 2080,
+      "Jul 12": 2070,
+      "Jul 11": 2060
+    }
+  },
+  {
+    "District": "Aurangabad",
+    "Mandi Name": "Sillod APMC",
+    "Commodity": "Bajra (Pearl Millet)",
+    "Variety": "Local",
+    "Prices": {
+      "Jul 16": 2290,
+      "Jul 15": 2300,
+      "Jul 14": 2310,
+      "Jul 13": 2290,
+      "Jul 12": 2280,
+      "Jul 11": 2270
+    }
+  },
+  {
+    "District": "Aurangabad",
+    "Mandi Name": "Vaijapur APMC",
+    "Commodity": "Sweet Corn",
+    "Variety": "Golden Bantam",
+    "Prices": {
+      "Jul 16": 1550,
+      "Jul 15": 1500,
+      "Jul 14": 1480,
+      "Jul 13": 1490,
+      "Jul 12": 1470,
+      "Jul 11": 1450
+    }
+  },
+  {
+    "District": "Beed",
+    "Mandi Name": "Beed APMC",
+    "Commodity": "Cotton",
+    "Variety": "Medium Staple",
+    "Prices": {
+      "Jul 16": 7050,
+      "Jul 15": 7000,
+      "Jul 14": 6980,
+      "Jul 13": 6950,
+      "Jul 12": 6960,
+      "Jul 11": 6940
+    }
+  },
+  {
+    "District": "Beed",
+    "Mandi Name": "Parli APMC",
+    "Commodity": "Jowar (Sorghum)",
+    "Variety": "Maldandi",
+    "Prices": {
+      "Jul 16": 3020,
+      "Jul 15": 3000,
+      "Jul 14": 2980,
+      "Jul 13": 2990,
+      "Jul 12": 2970,
+      "Jul 11": 2950
+    }
+  },
+  {
+    "District": "Beed",
+    "Mandi Name": "Ambajogai APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4560,
+      "Jul 15": 4550,
+      "Jul 14": 4530,
+      "Jul 13": 4540,
+      "Jul 12": 4520,
+      "Jul 11": 4500
+    }
+  },
+  {
+    "District": "Bhandara",
+    "Mandi Name": "Bhandara APMC",
+    "Commodity": "Paddy (Dhan)",
+    "Variety": "Swarna",
+    "Prices": {
+      "Jul 16": 2060,
+      "Jul 15": 2050,
+      "Jul 14": 2040,
+      "Jul 13": 2030,
+      "Jul 12": 2020,
+      "Jul 11": 2010
+    }
+  },
+  {
+    "District": "Bhandara",
+    "Mandi Name": "Tumsar APMC",
+    "Commodity": "Linseed",
+    "Variety": "Local",
+    "Prices": {
+      "Jul 16": 5750,
+      "Jul 15": 5800,
+      "Jul 14": 5820,
+      "Jul 13": 5790,
+      "Jul 12": 5810,
+      "Jul 11": 5800
+    }
+  },
+  {
+    "District": "Buldhana",
+    "Mandi Name": "Buldhana APMC",
+    "Commodity": "Maize",
+    "Variety": "Hybrid",
+    "Prices": {
+      "Jul 16": 2100,
+      "Jul 15": 2080,
+      "Jul 14": 2060,
+      "Jul 13": 2070,
+      "Jul 12": 2050,
+      "Jul 11": 2040
+    }
+  },
+  {
+    "District": "Buldhana",
+    "Mandi Name": "Khamgaon APMC",
+    "Commodity": "Tur (Arhar)",
+    "Variety": "Red",
+    "Prices": {
+      "Jul 16": 9800,
+      "Jul 15": 9750,
+      "Jul 14": 9730,
+      "Jul 13": 9700,
+      "Jul 12": 9710,
+      "Jul 11": 9690
+    }
+  },
+  {
+    "District": "Buldhana",
+    "Mandi Name": "Malkapur APMC",
+    "Commodity": "Cotton",
+    "Variety": "DCH-32",
+    "Prices": {
+      "Jul 16": 7180,
+      "Jul 15": 7150,
+      "Jul 14": 7130,
+      "Jul 13": 7100,
+      "Jul 12": 7110,
+      "Jul 11": 7090
+    }
+  },
+  {
+    "District": "Chandrapur",
+    "Mandi Name": "Chandrapur APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4420,
+      "Jul 15": 4400,
+      "Jul 14": 4380,
+      "Jul 13": 4390,
+      "Jul 12": 4370,
+      "Jul 11": 4350
+    }
+  },
+  {
+    "District": "Chandrapur",
+    "Mandi Name": "Warora APMC",
+    "Commodity": "Paddy (Dhan)",
+    "Variety": "HMT",
+    "Prices": {
+      "Jul 16": 2110,
+      "Jul 15": 2100,
+      "Jul 14": 2090,
+      "Jul 13": 2080,
+      "Jul 12": 2070,
+      "Jul 11": 2060
+    }
+  },
+  {
+    "District": "Dhule",
+    "Mandi Name": "Dhule APMC",
+    "Commodity": "Groundnut (Peanut)",
+    "Variety": "Bold",
+    "Prices": {
+      "Jul 16": 6150,
+      "Jul 15": 6200,
+      "Jul 14": 6220,
+      "Jul 13": 6190,
+      "Jul 12": 6210,
+      "Jul 11": 6200
+    }
+  },
+  {
+    "District": "Dhule",
+    "Mandi Name": "Shirpur APMC",
+    "Commodity": "Chilli",
+    "Variety": "Dry (Teja)",
+    "Prices": {
+      "Jul 16": 15200,
+      "Jul 15": 15000,
+      "Jul 14": 14900,
+      "Jul 13": 14950,
+      "Jul 12": 14850,
+      "Jul 11": 14800
+    }
+  },
+  {
+    "District": "Gadchiroli",
+    "Mandi Name": "Gadchiroli APMC",
+    "Commodity": "Paddy (Dhan)",
+    "Variety": "IR-64",
+    "Prices": {
+      "Jul 16": 2010,
+      "Jul 15": 2000,
+      "Jul 14": 1990,
+      "Jul 13": 1980,
+      "Jul 12": 1970,
+      "Jul 11": 1960
+    }
+  },
+  {
+    "District": "Gadchiroli",
+    "Mandi Name": "Aheri APMC",
+    "Commodity": "Tendu Leaves",
+    "Variety": "-",
+    "Prices": {
+      "Jul 16": 4500,
+      "Jul 15": 4500,
+      "Jul 14": 4500,
+      "Jul 13": 4500,
+      "Jul 12": 4500,
+      "Jul 11": 4500
+    }
+  },
+  {
+    "District": "Gondia",
+    "Mandi Name": "Gondia APMC",
+    "Commodity": "Paddy (Dhan)",
+    "Variety": "Chinnor",
+    "Prices": {
+      "Jul 16": 2250,
+      "Jul 15": 2200,
+      "Jul 14": 2180,
+      "Jul 13": 2150,
+      "Jul 12": 2160,
+      "Jul 11": 2140
+    }
+  },
+  {
+    "District": "Gondia",
+    "Mandi Name": "Tirora APMC",
+    "Commodity": "Linseed",
+    "Variety": "Flax",
+    "Prices": {
+      "Jul 16": 5820,
+      "Jul 15": 5850,
+      "Jul 14": 5870,
+      "Jul 13": 5840,
+      "Jul 12": 5860,
+      "Jul 11": 5850
+    }
+  },
+  {
+    "District": "Hingoli",
+    "Mandi Name": "Hingoli APMC",
+    "Commodity": "Turmeric",
+    "Variety": "Rajapuri",
+    "Prices": {
+      "Jul 16": 8600,
+      "Jul 15": 8500,
+      "Jul 14": 8450,
+      "Jul 13": 8480,
+      "Jul 12": 8460,
+      "Jul 11": 8440
+    }
+  },
+  {
+    "District": "Hingoli",
+    "Mandi Name": "Basmath APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4530,
+      "Jul 15": 4510,
+      "Jul 14": 4490,
+      "Jul 13": 4500,
+      "Jul 12": 4480,
+      "Jul 11": 4460
+    }
+  },
+  {
+    "District": "Jalgaon",
+    "Mandi Name": "Jalgaon APMC",
+    "Commodity": "Banana",
+    "Variety": "Grand Naine",
+    "Prices": {
+      "Jul 16": 1250,
+      "Jul 15": 1200,
+      "Jul 14": 1180,
+      "Jul 13": 1150,
+      "Jul 12": 1160,
+      "Jul 11": 1140
+    }
+  },
+  {
+    "District": "Jalgaon",
+    "Mandi Name": "Amalner APMC",
+    "Commodity": "Cotton",
+    "Variety": "MCU-5",
+    "Prices": {
+      "Jul 16": 7280,
+      "Jul 15": 7250,
+      "Jul 14": 7230,
+      "Jul 13": 7200,
+      "Jul 12": 7210,
+      "Jul 11": 7190
+    }
+  },
+  {
+    "District": "Jalna",
+    "Mandi Name": "Jalna APMC",
+    "Commodity": "Sweet Orange (Mosambi)",
+    "Variety": "Nucellar",
+    "Prices": {
+      "Jul 16": 2850,
+      "Jul 15": 2800,
+      "Jul 14": 2780,
+      "Jul 13": 2750,
+      "Jul 12": 2760,
+      "Jul 11": 2740
+    }
+  },
+  {
+    "District": "Jalna",
+    "Mandi Name": "Ambad APMC",
+    "Commodity": "Bajra (Pearl Millet)",
+    "Variety": "Hybrid",
+    "Prices": {
+      "Jul 16": 2260,
+      "Jul 15": 2250,
+      "Jul 14": 2240,
+      "Jul 13": 2230,
+      "Jul 12": 2220,
+      "Jul 11": 2210
+    }
+  },
+  {
+    "District": "Kolhapur",
+    "Mandi Name": "Kolhapur APMC",
+    "Commodity": "Sugarcane",
+    "Variety": "-",
+    "Prices": {
+      "Jul 16": 3100,
+      "Jul 15": 3100,
+      "Jul 14": 3100,
+      "Jul 13": 3100,
+      "Jul 12": 3100,
+      "Jul 11": 3100
+    }
+  },
+  {
+    "District": "Kolhapur",
+    "Mandi Name": "Ichalkaranji APMC",
+    "Commodity": "Jaggery",
+    "Variety": "Block",
+    "Prices": {
+      "Jul 16": 4050,
+      "Jul 15": 4000,
+      "Jul 14": 3980,
+      "Jul 13": 3950,
+      "Jul 12": 3960,
+      "Jul 11": 3940
+    }
+  },
+  {
+    "District": "Latur",
+    "Mandi Name": "Latur APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4650,
+      "Jul 15": 4600,
+      "Jul 14": 4580,
+      "Jul 13": 4550,
+      "Jul 12": 4560,
+      "Jul 11": 4540
+    }
+  },
+  {
+    "District": "Latur",
+    "Mandi Name": "Udgir APMC",
+    "Commodity": "Gram (Chana)",
+    "Variety": "Desi",
+    "Prices": {
+      "Jul 16": 5430,
+      "Jul 15": 5450,
+      "Jul 14": 5470,
+      "Jul 13": 5440,
+      "Jul 12": 5460,
+      "Jul 11": 5450
+    }
+  },
+  {
+    "District": "Mumbai",
+    "Mandi Name": "Mumbai APMC (Vashi)",
+    "Commodity": "Potato",
+    "Variety": "Agra",
+    "Prices": {
+      "Jul 16": 1620,
+      "Jul 15": 1600,
+      "Jul 14": 1580,
+      "Jul 13": 1590,
+      "Jul 12": 1570,
+      "Jul 11": 1550
+    }
+  },
+  {
+    "District": "Mumbai",
+    "Mandi Name": "Mumbai APMC (Vashi)",
+    "Commodity": "Tomato",
+    "Variety": "Hybrid",
+    "Prices": {
+      "Jul 16": 2450,
+      "Jul 15": 2500,
+      "Jul 14": 2520,
+      "Jul 13": 2490,
+      "Jul 12": 2510,
+      "Jul 11": 2500
+    }
+  },
+  {
+    "District": "Nagpur",
+    "Mandi Name": "Nagpur APMC",
+    "Commodity": "Orange",
+    "Variety": "Nagpur Mandarin",
+    "Prices": {
+      "Jul 16": 3550,
+      "Jul 15": 3500,
+      "Jul 14": 3480,
+      "Jul 13": 3450,
+      "Jul 12": 3460,
+      "Jul 11": 3440
+    }
+  },
+  {
+    "District": "Nagpur",
+    "Mandi Name": "Katol APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4500,
+      "Jul 15": 4480,
+      "Jul 14": 4460,
+      "Jul 13": 4470,
+      "Jul 12": 4450,
+      "Jul 11": 4430
+    }
+  },
+  {
+    "District": "Nanded",
+    "Mandi Name": "Nanded APMC",
+    "Commodity": "Banana",
+    "Variety": "-",
+    "Prices": {
+      "Jul 16": 1150,
+      "Jul 15": 1100,
+      "Jul 14": 1080,
+      "Jul 13": 1050,
+      "Jul 12": 1060,
+      "Jul 11": 1040
+    }
+  },
+  {
+    "District": "Nanded",
+    "Mandi Name": "Deglur APMC",
+    "Commodity": "Sugarcane",
+    "Variety": "-",
+    "Prices": {
+      "Jul 16": 3000,
+      "Jul 15": 3000,
+      "Jul 14": 3000,
+      "Jul 13": 3000,
+      "Jul 12": 3000,
+      "Jul 11": 3000
+    }
+  },
+  {
+    "District": "Nandurbar",
+    "Mandi Name": "Nandurbar APMC",
+    "Commodity": "Papaya",
+    "Variety": "Red Lady",
+    "Prices": {
+      "Jul 16": 950,
+      "Jul 15": 900,
+      "Jul 14": 880,
+      "Jul 13": 850,
+      "Jul 12": 860,
+      "Jul 11": 840
+    }
+  },
+  {
+    "District": "Nandurbar",
+    "Mandi Name": "Shahada APMC",
+    "Commodity": "Chilli",
+    "Variety": "Dry (Dabbi)",
+    "Prices": {
+      "Jul 16": 14600,
+      "Jul 15": 14500,
+      "Jul 14": 14450,
+      "Jul 13": 14480,
+      "Jul 12": 14460,
+      "Jul 11": 14440
+    }
+  },
+  {
+    "District": "Nashik",
+    "Mandi Name": "Nashik APMC",
+    "Commodity": "Grapes",
+    "Variety": "Thompson Seedless",
+    "Prices": {
+      "Jul 16": 5400,
+      "Jul 15": 5500,
+      "Jul 14": 5550,
+      "Jul 13": 5480,
+      "Jul 12": 5520,
+      "Jul 11": 5500
+    }
+  },
+  {
+    "District": "Nashik",
+    "Mandi Name": "Lasalgaon APMC",
+    "Commodity": "Onion",
+    "Variety": "Lal (Red)",
+    "Prices": {
+      "Jul 16": 1950,
+      "Jul 15": 1900,
+      "Jul 14": 1880,
+      "Jul 13": 1850,
+      "Jul 12": 1860,
+      "Jul 11": 1840
+    }
+  },
+  {
+    "District": "Osmanabad",
+    "Mandi Name": "Osmanabad APMC",
+    "Commodity": "Jowar (Sorghum)",
+    "Variety": "SH-5",
+    "Prices": {
+      "Jul 16": 2920,
+      "Jul 15": 2900,
+      "Jul 14": 2880,
+      "Jul 13": 2890,
+      "Jul 12": 2870,
+      "Jul 11": 2850
+    }
+  },
+  {
+    "District": "Osmanabad",
+    "Mandi Name": "Tuljapur APMC",
+    "Commodity": "Tur (Arhar)",
+    "Variety": "Red",
+    "Prices": {
+      "Jul 16": 9720,
+      "Jul 15": 9700,
+      "Jul 14": 9680,
+      "Jul 13": 9650,
+      "Jul 12": 9660,
+      "Jul 11": 9640
+    }
+  },
+  {
+    "District": "Palghar",
+    "Mandi Name": "Palghar APMC",
+    "Commodity": "Sapota (Chikoo)",
+    "Variety": "Kalipatti",
+    "Prices": {
+      "Jul 16": 2100,
+      "Jul 15": 2000,
+      "Jul 14": 1980,
+      "Jul 13": 1950,
+      "Jul 12": 1960,
+      "Jul 11": 1940
+    }
+  },
+  {
+    "District": "Palghar",
+    "Mandi Name": "Dahanu APMC",
+    "Commodity": "Rice",
+    "Variety": "Kolam",
+    "Prices": {
+      "Jul 16": 3550,
+      "Jul 15": 3500,
+      "Jul 14": 3480,
+      "Jul 13": 3490,
+      "Jul 12": 3470,
+      "Jul 11": 3450
+    }
+  },
+  {
+    "District": "Parbhani",
+    "Mandi Name": "Parbhani APMC",
+    "Commodity": "Turmeric",
+    "Variety": "Salem",
+    "Prices": {
+      "Jul 16": 8450,
+      "Jul 15": 8400,
+      "Jul 14": 8380,
+      "Jul 13": 8350,
+      "Jul 12": 8360,
+      "Jul 11": 8340
+    }
+  },
+  {
+    "District": "Parbhani",
+    "Mandi Name": "Gangakhed APMC",
+    "Commodity": "Sugarcane",
+    "Variety": "-",
+    "Prices": {
+      "Jul 16": 3050,
+      "Jul 15": 3050,
+      "Jul 14": 3050,
+      "Jul 13": 3050,
+      "Jul 12": 3050,
+      "Jul 11": 3050
+    }
+  },
+  {
+    "District": "Pune",
+    "Mandi Name": "Pune APMC (Market Yard)",
+    "Commodity": "Tomato",
+    "Variety": "S-22",
+    "Prices": {
+      "Jul 16": 2580,
+      "Jul 15": 2600,
+      "Jul 14": 2620,
+      "Jul 13": 2590,
+      "Jul 12": 2610,
+      "Jul 11": 2600
+    }
+  },
+  {
+    "District": "Pune",
+    "Mandi Name": "Baramati APMC",
+    "Commodity": "Wheat",
+    "Variety": "Lokwan",
+    "Prices": {
+      "Jul 16": 2810,
+      "Jul 15": 2800,
+      "Jul 14": 2790,
+      "Jul 13": 2780,
+      "Jul 12": 2770,
+      "Jul 11": 2760
+    }
+  },
+  {
+    "District": "Raigad",
+    "Mandi Name": "Alibag APMC",
+    "Commodity": "Watermelon",
+    "Variety": "Kiran",
+    "Prices": {
+      "Jul 16": 850,
+      "Jul 15": 800,
+      "Jul 14": 780,
+      "Jul 13": 750,
+      "Jul 12": 760,
+      "Jul 11": 740
+    }
+  },
+  {
+    "District": "Raigad",
+    "Mandi Name": "Panvel APMC",
+    "Commodity": "Rice",
+    "Variety": "Surti Kolam",
+    "Prices": {
+      "Jul 16": 3620,
+      "Jul 15": 3600,
+      "Jul 14": 3580,
+      "Jul 13": 3590,
+      "Jul 12": 3570,
+      "Jul 11": 3550
+    }
+  },
+  {
+    "District": "Ratnagiri",
+    "Mandi Name": "Ratnagiri APMC",
+    "Commodity": "Mango",
+    "Variety": "Alphonso",
+    "Prices": {
+      "Jul 16": 39500,
+      "Jul 15": 40000,
+      "Jul 14": 40200,
+      "Jul 13": 39900,
+      "Jul 12": 40100,
+      "Jul 11": 40000
+    }
+  },
+  {
+    "District": "Ratnagiri",
+    "Mandi Name": "Dapoli APMC",
+    "Commodity": "Cashew Nut",
+    "Variety": "Raw",
+    "Prices": {
+      "Jul 16": 11100,
+      "Jul 15": 11000,
+      "Jul 14": 10950,
+      "Jul 13": 10980,
+      "Jul 12": 10960,
+      "Jul 11": 10940
+    }
+  },
+  {
+    "District": "Sangli",
+    "Mandi Name": "Sangli APMC",
+    "Commodity": "Turmeric",
+    "Variety": "Rajapuri",
+    "Prices": {
+      "Jul 16": 8900,
+      "Jul 15": 8800,
+      "Jul 14": 8750,
+      "Jul 13": 8780,
+      "Jul 12": 8760,
+      "Jul 11": 8740
+    }
+  },
+  {
+    "District": "Sangli",
+    "Mandi Name": "Miraj APMC",
+    "Commodity": "Grapes",
+    "Variety": "Super Sonaka",
+    "Prices": {
+      "Jul 16": 5150,
+      "Jul 15": 5200,
+      "Jul 14": 5220,
+      "Jul 13": 5190,
+      "Jul 12": 5210,
+      "Jul 11": 5200
+    }
+  },
+  {
+    "District": "Satara",
+    "Mandi Name": "Satara APMC",
+    "Commodity": "Ginger",
+    "Variety": "Fresh",
+    "Prices": {
+      "Jul 16": 7600,
+      "Jul 15": 7500,
+      "Jul 14": 7450,
+      "Jul 13": 7480,
+      "Jul 12": 7460,
+      "Jul 11": 7440
+    }
+  },
+  {
+    "District": "Satara",
+    "Mandi Name": "Karad APMC",
+    "Commodity": "Groundnut (Peanut)",
+    "Variety": "Spanish Bunch",
+    "Prices": {
+      "Jul 16": 6120,
+      "Jul 15": 6100,
+      "Jul 14": 6080,
+      "Jul 13": 6090,
+      "Jul 12": 6070,
+      "Jul 11": 6050
+    }
+  },
+  {
+    "District": "Sindhudurg",
+    "Mandi Name": "Kudal APMC",
+    "Commodity": "Coconut",
+    "Variety": "Matured",
+    "Prices": {
+      "Jul 16": 2550,
+      "Jul 15": 2500,
+      "Jul 14": 2480,
+      "Jul 13": 2450,
+      "Jul 12": 2460,
+      "Jul 11": 2440
+    }
+  },
+  {
+    "District": "Sindhudurg",
+    "Mandi Name": "Sawantwadi APMC",
+    "Commodity": "Kokum",
+    "Variety": "Wet",
+    "Prices": {
+      "Jul 16": 1800,
+      "Jul 15": 1800,
+      "Jul 14": 1800,
+      "Jul 13": 1800,
+      "Jul 12": 1800,
+      "Jul 11": 1800
+    }
+  },
+  {
+    "District": "Solapur",
+    "Mandi Name": "Solapur APMC",
+    "Commodity": "Pomegranate",
+    "Variety": "Ganesh",
+    "Prices": {
+      "Jul 16": 8100,
+      "Jul 15": 8000,
+      "Jul 14": 7950,
+      "Jul 13": 7980,
+      "Jul 12": 7960,
+      "Jul 11": 7940
+    }
+  },
+  {
+    "District": "Solapur",
+    "Mandi Name": "Pandharpur APMC",
+    "Commodity": "Jowar (Sorghum)",
+    "Variety": "Maldandi",
+    "Prices": {
+      "Jul 16": 3150,
+      "Jul 15": 3100,
+      "Jul 14": 3080,
+      "Jul 13": 3050,
+      "Jul 12": 3060,
+      "Jul 11": 3040
+    }
+  },
+  {
+    "District": "Thane",
+    "Mandi Name": "Thane APMC",
+    "Commodity": "Brinjal",
+    "Variety": "Long Green",
+    "Prices": {
+      "Jul 16": 1450,
+      "Jul 15": 1400,
+      "Jul 14": 1380,
+      "Jul 13": 1350,
+      "Jul 12": 1360,
+      "Jul 11": 1340
+    }
+  },
+  {
+    "District": "Thane",
+    "Mandi Name": "Kalyan APMC",
+    "Commodity": "Cabbage",
+    "Variety": "Ball",
+    "Prices": {
+      "Jul 16": 720,
+      "Jul 15": 700,
+      "Jul 14": 680,
+      "Jul 13": 690,
+      "Jul 12": 670,
+      "Jul 11": 650
+    }
+  },
+  {
+    "District": "Wardha",
+    "Mandi Name": "Wardha APMC",
+    "Commodity": "Cotton",
+    "Variety": "LRA-5166",
+    "Prices": {
+      "Jul 16": 7080,
+      "Jul 15": 7050,
+      "Jul 14": 7030,
+      "Jul 13": 7000,
+      "Jul 12": 7010,
+      "Jul 11": 6990
+    }
+  },
+  {
+    "District": "Wardha",
+    "Mandi Name": "Hinganghat APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4550,
+      "Jul 15": 4520,
+      "Jul 14": 4500,
+      "Jul 13": 4510,
+      "Jul 12": 4490,
+      "Jul 11": 4470
+    }
+  },
+  {
+    "District": "Washim",
+    "Mandi Name": "Washim APMC",
+    "Commodity": "Gram (Chana)",
+    "Variety": "Desi",
+    "Prices": {
+      "Jul 16": 5360,
+      "Jul 15": 5350,
+      "Jul 14": 5340,
+      "Jul 13": 5330,
+      "Jul 12": 5320,
+      "Jul 11": 5310
+    }
+  },
+  {
+    "District": "Washim",
+    "Mandi Name": "Mangrulpir APMC",
+    "Commodity": "Maize",
+    "Variety": "Hybrid",
+    "Prices": {
+      "Jul 16": 2060,
+      "Jul 15": 2050,
+      "Jul 14": 2040,
+      "Jul 13": 2030,
+      "Jul 12": 2020,
+      "Jul 11": 2010
+    }
+  },
+  {
+    "District": "Yavatmal",
+    "Mandi Name": "Yavatmal APMC",
+    "Commodity": "Cotton",
+    "Variety": "H-4",
+    "Prices": {
+      "Jul 16": 7190,
+      "Jul 15": 7150,
+      "Jul 14": 7130,
+      "Jul 13": 7100,
+      "Jul 12": 7110,
+      "Jul 11": 7090
+    }
+  },
+  {
+    "District": "Yavatmal",
+    "Mandi Name": "Wani APMC",
+    "Commodity": "Soybean",
+    "Variety": "Yellow",
+    "Prices": {
+      "Jul 16": 4510,
+      "Jul 15": 4490,
+      "Jul 14": 4470,
+      "Jul 13": 4480,
+      "Jul 12": 4460,
+      "Jul 11": 4440
+    }
+  }
+]

@@ -6,12 +6,12 @@ body {
 
 .dashboard-container {
   display: flex;
-  height: 100vh;
+  height: 110vh;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 180px;
+  width: 175px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background-color: #3A635B;
@@ -208,7 +208,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 100px;
 }
 
 .temp-content {
@@ -224,8 +224,8 @@ body {
 }
 
 .weather-icon {
-  width: 60px;
-  height: 60px;
+  width: 180px;
+  height: 180px;
 }
 
 .temp-value {
@@ -242,54 +242,127 @@ body {
 }
 
 
+.forecast-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
 .forecast-card {
-  text-align: center;
-  padding-top: 10px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.forecast-card h4 {
-  margin-bottom: 6px;
-  font-size: 1rem;
-  color: #333;
+.forecast-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #3A635B;
 }
 
-.forecast-card .weather-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 6px;
+.forecast-compact img {
+  width: 36px;
+  height: 36px;
 }
 
-.forecast-card .temp-value {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin: 0;
-  color: #2c2c2c;
+
+.mandi-prices-card {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
-.forecast-card .condition-text {
+.mandi-prices-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: #3A635B;
+}
+
+.mandi-row {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.mandi-block {
+  flex: 1;
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 10px;
   font-size: 0.9rem;
-  color: #666;
-  margin-top: 4px;
 }
 
-.forecast-day {
+.mandi-block .commodity {
+  font-weight: bold;
+  color: #3A635B;
+}
+
+.mandi-block .price {
+  color: #222;
+}
+
+.mandi-block .market {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.location-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1rem;
   font-weight: 500;
+  color: #3A635B;
+}
+
+.location-display button {
+  padding: 4px 10px;
+  background-color: #C4CE5F;
   color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.forecast-temp {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #2c2c2c;
+.location-modal {
+  position: absolute;
+  top: 70px;
+  left: 200px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-.forecast-condition {
+.location-modal h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #3A635B;
+}
+
+.district-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.district-list button {
+  padding: 6px 12px;
+  border: 1px solid #3A635B;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
   font-size: 0.9rem;
-  color: #666;
 }
 
-.weather-icon {
-  width: 40px;
-  height: 40px;
+.district-list button.active {
+  background-color: #3A635B;
+  color: white;
+  font-weight: bold;
 }
