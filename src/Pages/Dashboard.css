@@ -6,7 +6,7 @@ body {
 
 .dashboard-container {
   display: flex;
-  height: 110vh;
+  height: 100vh;
 }
 
 /* Sidebar */
@@ -366,3 +366,15 @@ body {
   color: white;
   font-weight: bold;
 }
+
+.card.large {
+  padding: 16px;
+  /* height: auto; */
+  min-height: 220px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+

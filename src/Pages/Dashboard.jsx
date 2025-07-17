@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
+import MandiPriceGraph from "../Components/MandiPriceGraph";
 import {
   FaTachometerAlt,
   FaCloudSun,
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [mandiData, setMandiData] = useState([]);
+  const [alerts, setAlerts] = useState([]);
 
   const handleChangeLocation = () => setShowLocationModal(!showLocationModal);
 
@@ -27,51 +29,47 @@ const Dashboard = () => {
     setShowLocationModal(false);
   };
 
- useEffect(() => {
-  const fetchWeather = async () => {
-    try {
-      // 🔸 Fetch current weather
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
-      );
-      const data = await res.json();
-      if (res.ok) setWeather(data);
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const res = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+        );
+        const data = await res.json();
+        if (res.ok) setWeather(data);
 
-      // 🔸 Fetch 5-day forecast
-      const forecastRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
-      );
-      const forecastData = await forecastRes.json();
+        const forecastRes = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+        );
+        const forecastData = await forecastRes.json();
 
-      // 🔸 Filter next 3 days (excluding today)
-      const today = new Date().toISOString().split("T")[0];
-      const dailyForecasts = [];
-      const seenDates = new Set();
+        const today = new Date().toISOString().split("T")[0];
+        const dailyForecasts = [];
+        const seenDates = new Set();
 
-      for (let item of forecastData.list) {
-        const date = item.dt_txt.split(" ")[0];
+        for (let item of forecastData.list) {
+          const date = item.dt_txt.split(" ")[0];
 
-        if (date === today) continue; // skip today
-        if (!seenDates.has(date)) {
-          dailyForecasts.push(item);
-          seenDates.add(date);
+          if (date === today) continue;
+          if (!seenDates.has(date)) {
+            dailyForecasts.push(item);
+            seenDates.add(date);
+          }
+
+          if (dailyForecasts.length === 3) break;
         }
 
-        if (dailyForecasts.length === 3) break;
+        setForecast(dailyForecasts);
+      } catch (err) {
+        console.error("Weather fetch error:", err);
       }
+    };
 
-      setForecast(dailyForecasts);
-    } catch (err) {
-      console.error("Weather fetch error:", err);
-    }
-  };
-
-  fetchWeather();
-}, [selectedDistrict]);
-
+    fetchWeather();
+  }, [selectedDistrict]);
 
   useEffect(() => {
-    fetch("/maharashtra-mandi-full.json")
+    fetch("/src/Data/maharashtra-mandi-full.json")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(
@@ -81,6 +79,42 @@ const Dashboard = () => {
       })
       .catch((err) => console.error("Mandi fetch error:", err));
   }, [selectedDistrict]);
+
+useEffect(() => {
+  const fetchAlerts = async () => {
+    try {
+      const response = await fetch(
+        `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWS_API_KEY}&q=alert%20OR%20emergency%20OR%20warning%20OR%20disaster&country=in&language=en`
+      );
+      const data = await response.json();
+      console.log("Alert Data:", data);
+
+      if (data?.results?.length > 0) {
+        const filtered = data.results.filter(item =>
+          item.title?.toLowerCase().includes("maharashtra") &&
+          (
+            item.title.toLowerCase().includes("alert") ||
+            item.title.toLowerCase().includes("emergency") ||
+            item.title.toLowerCase().includes("warning") ||
+            item.title.toLowerCase().includes("disaster")
+          )
+        );
+        console.log("All Alerts Returned:", data.results);
+        setAlerts(filtered.slice(0, 5)); // now correctly using setAlerts
+      } else {
+        console.log("No alert results found");
+        setAlerts([]);
+      }
+    } catch (err) {
+      console.error("Error fetching alert news:", err);
+      setAlerts([]);
+    }
+  };
+
+  fetchAlerts();
+}, []);
+
+
 
   return (
     <div className="dashboard-container">
@@ -160,11 +194,11 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="card large">📊 Price Trend Graph</div>
+            <MandiPriceGraph district={selectedDistrict} />
 
             <div className="forecast-row">
-              {forecast.map((item) => (
-                <div className="card small forecast-card">
+              {forecast.map((item, idx) => (
+                <div key={idx} className="card small forecast-card">
                   <div className="forecast-compact">
                     <span>{new Date(item.dt_txt).toLocaleDateString("en-IN", { weekday: "short" })}</span>
                     <img
@@ -176,14 +210,28 @@ const Dashboard = () => {
                     <span>{item.weather[0].main}</span>
                   </div>
                 </div>
-
               ))}
             </div>
-
           </div>
 
           <div className="right-sidebar">
-            <div className="card tall">🌩️ Alerts</div>
+<div className="card tall">
+  <h4>🌩️ Alerts</h4>
+  {alerts.length === 0 ? (
+    <p>Loading critical alerts for Maharashtra...</p>
+  ) : (
+    <ul style={{ paddingLeft: "1rem", fontSize: "0.9rem", color: "#333" }}>
+      {alerts.map((alert, idx) => (
+        <li key={idx}>
+          <a href={alert.link} target="_blank" rel="noopener noreferrer">
+            {alert.title.length > 75 ? alert.title.slice(0, 75) + "..." : alert.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
             <div className="card tall">📜 Gov Scheme 1</div>
             <div className="card tall">📜 Gov Scheme 2</div>
             <div className="card tall">📜 Gov Scheme 3</div>
