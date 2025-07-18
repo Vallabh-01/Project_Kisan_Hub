@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
+import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
 import {
   FaTachometerAlt,
@@ -15,7 +16,7 @@ const districts = [
 ];
 
 const Dashboard = () => {
-const [quote, setQuote] = useState("Loading...");
+  const [quote, setQuote] = useState("Loading...");
   const [selectedDistrict, setSelectedDistrict] = useState("Beed");
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
@@ -29,24 +30,24 @@ const [quote, setQuote] = useState("Loading...");
     setShowLocationModal(false);
   };
 
-useEffect(() => {
-  const fetchQuote = async () => {
-    try {
-      const res = await fetch("https://zenquotes.io/api/today");
-      const data = await res.json();
-      if (data && data[0]?.q) {
-        setQuote(`${data[0].q} — ${data[0].a}`);
-      } else {
-        setQuote("Stay positive and keep growing! 🌱");
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const res = await fetch("https://zenquotes.io/api/today");
+        const data = await res.json();
+        if (data && data[0]?.q) {
+          setQuote(`${data[0].q} — ${data[0].a}`);
+        } else {
+          setQuote("Stay positive and keep growing! 🌱");
+        }
+      } catch (error) {
+        console.error("Quote fetch failed:", error);
+        setQuote("Grow with consistency. 🌾");
       }
-    } catch (error) {
-      console.error("Quote fetch failed:", error);
-      setQuote("Grow with consistency. 🌾");
-    }
-  };
+    };
 
-  fetchQuote();
-}, []);
+    fetchQuote();
+  }, []);
 
 
   useEffect(() => {
@@ -137,31 +138,31 @@ useEffect(() => {
     fetchAlerts();
   }, []);
 
-useEffect(() => {
-  const fetchSchemes = async () => {
-    try {
-      const res = await fetch(
-        `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWS_API_KEY}&q=farmer+scheme+OR+government+scheme+OR+kisan+yojana&country=in&language=en`
-      );
-      const data = await res.json();
-
-      if (data?.results?.length > 0) {
-        // Filter and limit to 3
-        const filtered = data.results.filter(item =>
-          item.title?.toLowerCase().includes("scheme") || item.title?.toLowerCase().includes("yojana")
+  useEffect(() => {
+    const fetchSchemes = async () => {
+      try {
+        const res = await fetch(
+          `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWS_API_KEY}&q=farmer+scheme+OR+government+scheme+OR+kisan+yojana&country=in&language=en`
         );
-        setSchemes(filtered.slice(0, 3));
-      } else {
+        const data = await res.json();
+
+        if (data?.results?.length > 0) {
+          // Filter and limit to 3
+          const filtered = data.results.filter(item =>
+            item.title?.toLowerCase().includes("scheme") || item.title?.toLowerCase().includes("yojana")
+          );
+          setSchemes(filtered.slice(0, 3));
+        } else {
+          setSchemes([]);
+        }
+      } catch (err) {
+        console.error("Error fetching schemes:", err);
         setSchemes([]);
       }
-    } catch (err) {
-      console.error("Error fetching schemes:", err);
-      setSchemes([]);
-    }
-  };
+    };
 
-  fetchSchemes();
-}, []);
+    fetchSchemes();
+  }, []);
 
 
   return (
@@ -176,19 +177,17 @@ useEffect(() => {
         </div>
         <div className="main-text">Welcome to Kisan Hub</div>
         <nav className="nav-links">
-          <a className="active">
-            <FaTachometerAlt className="icon" /> Dashboard
-          </a>
-          <a><FaCloudSun className="icon" /> Weather</a>
-          <a><FaStore className="icon" /> Mandi Prices</a>
-          <a><FaLandmark className="icon" /> Gov. Schemes</a>
+          <Link to="/" ><FaTachometerAlt className="icon" /> Dashboard</Link>
+          <Link to="/weather"><FaCloudSun className="icon" /> Weather</Link>
+          <Link to="/mandi"><FaStore className="icon" /> Mandi Prices</Link>
+          <Link to="/schemes"><FaLandmark className="icon" /> Gov. Schemes</Link>
           <a><FaCog className="icon" /> Settings</a>
         </nav>
         <div className="quote-box">
-  <strong>🌱 Quote of the Day</strong>
-  <p style={{ fontSize: "0.9rem", marginTop: "5px" }}>{quote}</p>
-</div>
-{/* 
+          <strong>🌱 Quote of the Day</strong>
+          <p style={{ fontSize: "0.9rem", marginTop: "5px" }}>{quote}</p>
+        </div>
+        {/* 
         <div className="settings"><FaCog className="icon" /> Settings</div> */}
       </aside>
 
@@ -268,55 +267,55 @@ useEffect(() => {
           </div>
 
           <div className="right-sidebar">
-  <div className="card tall">
-    {alerts.length === 0 ? (
-      <p>No critical alerts found for Maharashtra at the moment.</p>
-    ) : (
-      <ul style={{ paddingLeft: "1rem", fontSize: "0.9rem", color: "#333" }}>
-        {alerts.map((alert, idx) => (
-          <li key={idx}>
-            <a href={alert.link} target="_blank" rel="noopener noreferrer">
-              {alert.title.length > 75 ? alert.title.slice(0, 75) + "..." : alert.title}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
+            <div className="card tall">
+              {alerts.length === 0 ? (
+                <p>No critical alerts found for Maharashtra at the moment.</p>
+              ) : (
+                <ul style={{ paddingLeft: "1rem", fontSize: "0.9rem", color: "#333" }}>
+                  {alerts.map((alert, idx) => (
+                    <li key={idx}>
+                      <a href={alert.link} target="_blank" rel="noopener noreferrer">
+                        {alert.title.length > 75 ? alert.title.slice(0, 75) + "..." : alert.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
 
-  {/* Schemes — Only 3 Fixed Cards */}
-  <div className="card tall">
-    {schemes[0] ? (
-      <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
-        📜 {schemes[0].title.length > 75 ? schemes[0].title.slice(0, 75) + "..." : schemes[0].title}
-      </a>
-    ) : (
-      <p>Loading Scheme 1...</p>
-    )}
-  </div>
+            {/* Schemes — Only 3 Fixed Cards */}
+            <div className="card tall">
+              {schemes[0] ? (
+                <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
+                  📜 {schemes[0].title.length > 75 ? schemes[0].title.slice(0, 75) + "..." : schemes[0].title}
+                </a>
+              ) : (
+                <p>Loading Scheme 1...</p>
+              )}
+            </div>
 
-  <div className="card tall">
-    {schemes[1] ? (
-      <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
-        📜 {schemes[1].title.length > 75 ? schemes[1].title.slice(0, 75) + "..." : schemes[1].title}
-      </a>
-    ) : (
-      <p>Loading Scheme 2...</p>
-    )}
-  </div>
+            <div className="card tall">
+              {schemes[1] ? (
+                <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
+                  📜 {schemes[1].title.length > 75 ? schemes[1].title.slice(0, 75) + "..." : schemes[1].title}
+                </a>
+              ) : (
+                <p>Loading Scheme 2...</p>
+              )}
+            </div>
 
-  <div className="card tall">
-    {schemes[2] ? (
-      <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
-        📜 {schemes[2].title.length > 75 ? schemes[2].title.slice(0, 75) + "..." : schemes[2].title}
-      </a>
-    ) : (
-      <p>Loading Scheme 3...</p>
-    )}
-  </div>
-</div>
+            <div className="card tall">
+              {schemes[2] ? (
+                <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
+                  📜 {schemes[2].title.length > 75 ? schemes[2].title.slice(0, 75) + "..." : schemes[2].title}
+                </a>
+              ) : (
+                <p>Loading Scheme 3...</p>
+              )}
+            </div>
+          </div>
 
-        
+
         </div>
       </main>
     </div>
