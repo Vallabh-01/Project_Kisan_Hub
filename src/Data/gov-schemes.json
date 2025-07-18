@@ -1,0 +1,17 @@
+[
+  {
+    "name": "PM-KISAN",
+    "description": "Provides income support to farmers up to ₹6000 per year.",
+    "link": "https://pmkisan.gov.in/"
+  },
+  {
+    "name": "Soil Health Card Scheme",
+    "description": "Promotes soil testing and improved crop planning.",
+    "link": "https://soilhealth.dac.gov.in/"
+  },
+  {
+    "name": "Pradhan Mantri Fasal Bima Yojana",
+    "description": "Insurance coverage and financial support to farmers in crop loss.",
+    "link": "https://pmfby.gov.in/"
+  }
+]
