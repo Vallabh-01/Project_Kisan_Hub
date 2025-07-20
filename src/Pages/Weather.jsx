@@ -143,7 +143,7 @@ const Weather = () => {
         <nav className="weather-icons">
           <Link to="/"><FaTachometerAlt /></Link>
           <Link to="/weather"><FaCloudSun className="active" /></Link>
-          <Link to="/mandi"><FaStore /></Link>
+          <Link to="/MandiPrices"><FaStore /></Link>
           <Link to="/schemes"><FaLandmark /></Link>
           <FaCog />
         </nav>

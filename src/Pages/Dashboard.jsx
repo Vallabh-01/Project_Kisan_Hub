@@ -167,7 +167,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <aside className="sidebar">
+      <aside className="sidebar-dashboard">
         <div className="logo">
           <img
             src="src/assets/Hd Logo normal.png"
@@ -179,7 +179,7 @@ const Dashboard = () => {
         <nav className="nav-links">
           <Link to="/" ><FaTachometerAlt className="icon" /> Dashboard</Link>
           <Link to="/weather"><FaCloudSun className="icon" /> Weather</Link>
-          <Link to="/mandi"><FaStore className="icon" /> Mandi Prices</Link>
+          <Link to="/MandiPrices"><FaStore className="icon" /> Mandi Prices</Link>
           <Link to="/schemes"><FaLandmark className="icon" /> Gov. Schemes</Link>
           <a><FaCog className="icon" /> Settings</a>
         </nav>

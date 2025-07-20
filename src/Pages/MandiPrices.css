@@ -1,0 +1,131 @@
+.mandi-container {
+  display: flex;
+  height: 100vh;
+}
+
+.Mandi-sidebar {
+    width: 80px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #3A635B;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Mandi-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.Mandi-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Mandi-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.Mandi-icons a {
+    color: white;
+    text-decoration: none;
+}
+
+.Mandi-icons .active {
+    border: 2px solid #C4CE5F;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.content-area {
+  flex-grow: 1;
+  background: white;
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.search-section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 15px;
+  border: none;
+  background: #e2e2e2;
+  font-family: inherit;
+}
+
+.price-table-section {
+  margin-bottom: 30px;
+}
+
+.price-table {
+  background-color: #d1d1d1;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-weight: bold;
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.table-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-trend-section {
+  display: flex;
+  gap: 20px;
+  height: 210px;
+}
+
+.trend-card {
+  background-color: #d1d1d1;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 16px;
+  flex: 1;
+}
+
+.trend-card {
+  flex: 2;
+}
+
+.tips-card {
+  flex: 1;
+  height: 100px;
+   background-color: #d1d1d1;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 16px;
+  max-width: 320px;
+  margin-top: 40px;
+}
