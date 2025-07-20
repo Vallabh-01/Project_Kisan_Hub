@@ -66,7 +66,7 @@
 
 .search-input {
   padding: 10px;
-  width: 250px;
+  width: 240px;
   border-radius: 15px;
   border: none;
   background: #e2e2e2;
@@ -83,7 +83,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 100px;
+  height: 110px;
 }
 
 .table-header {
@@ -95,28 +95,76 @@
   margin-bottom: 10px;
 }
 
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-size: 0.95rem;
+  padding: 4px 0;
+  align-items: center;
+}
+.crop-name {
+  font-weight: 500;
+}
+.green {
+  color: green;
+  font-weight: bold;
+}
+.red {
+  color: red;
+  font-weight: bold;
+}
+.gray {
+  color: gray;
+  font-weight: bold;
+}
+
+
 .table-rows {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 110px; /* height of approx 2 rows */
+  overflow-y: auto;
+  padding-right: 5px;
+  scroll-behavior: smooth;
 }
+
 
 .price-trend-section {
   display: flex;
   gap: 20px;
-  height: 210px;
+  margin-top: 20px;
 }
 
 .trend-card {
+  flex: 2; /* Good width ratio */
   background-color: #d1d1d1;
   border-radius: 20px;
   padding: 20px;
   font-size: 16px;
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 170px; /* Fixed height as requested */
+  overflow: hidden;
 }
 
-.trend-card {
-  flex: 2;
+.tips-card {
+  flex: 1;
+  background-color: #d1d1d1;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 16px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tips-card p {
+  font-weight: 500;
+  color: #2e4e46;
 }
 
 .tips-card {
