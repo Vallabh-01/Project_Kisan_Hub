@@ -81,7 +81,7 @@ const getCropTip = (commodity) => {
                     <Link to="/"><FaTachometerAlt /></Link>
                     <Link to="/weather"><FaCloudSun /></Link>
                     <Link to={`/MandiPrices?district=${selectedDistrict}`}> <FaStore className="active" /></Link>
-                    <Link to="/schemes"><FaLandmark /></Link>
+                    <Link to="/GovSchemes"><FaLandmark /></Link>
                     <FaCog />
                 </nav>
             </aside>

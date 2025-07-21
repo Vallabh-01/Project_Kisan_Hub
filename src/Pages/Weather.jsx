@@ -144,7 +144,7 @@ const Weather = () => {
           <Link to="/"><FaTachometerAlt /></Link>
           <Link to="/weather"><FaCloudSun className="active" /></Link>
           <Link to="/MandiPrices"><FaStore /></Link>
-          <Link to="/schemes"><FaLandmark /></Link>
+          <Link to="/GovSchemes"><FaLandmark /></Link>
           <FaCog />
         </nav>
       </aside>

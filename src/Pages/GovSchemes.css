@@ -1,0 +1,111 @@
+.gov-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.gov-sidebar {
+  width: 100px;
+  background-color: #2e4e46;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.gov-logo .logo-img {
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  border-radius: 50%;
+}
+
+.gov-icons {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.gov-icons a,
+.gov-icons svg {
+  font-size: 24px;
+  color: white;
+}
+
+.gov-icons .active {
+  border: 2px solid #cddc39;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.gov-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #fefefe;
+}
+
+.schemes-section h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.scheme-card {
+  background-color: #d1d1d1;
+  border-radius: 20px;
+  height: 100px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.scheme-card h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.scheme-card p {
+  font-size: 13px;
+  color: #2e4e46;
+}
+
+
+.related-news-section h2 {
+  margin-bottom: 10px;
+}
+
+.news-card {
+  background-color: #d1d1d1;
+  border-radius: 20px;
+  height: 40px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* Increased font size */
+  text-align: center;
+}
+
+.news-item {
+  font-weight: 600;
+  font-size: 18px;
+  color: #364f49;
+  text-decoration: none;
+  /* transition: color 0.3s; */
+   transition: opacity 0.5s ease-in-out;
+}
+
+.news-item:hover {
+  color: #1d2f29;
+}

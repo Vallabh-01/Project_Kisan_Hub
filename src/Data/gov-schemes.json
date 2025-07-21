@@ -1,17 +1,44 @@
-[
-  {
-    "name": "PM-KISAN",
-    "description": "Provides income support to farmers up to ₹6000 per year.",
-    "link": "https://pmkisan.gov.in/"
-  },
-  {
-    "name": "Soil Health Card Scheme",
-    "description": "Promotes soil testing and improved crop planning.",
-    "link": "https://soilhealth.dac.gov.in/"
-  },
-  {
-    "name": "Pradhan Mantri Fasal Bima Yojana",
-    "description": "Insurance coverage and financial support to farmers in crop loss.",
-    "link": "https://pmfby.gov.in/"
-  }
-]
+{
+  "government_schemes": [
+    {
+      "scheme_type": "Central Government (India)",
+      "schemes": [
+        {
+          "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+          "description": "Provides income support to all eligible farmer families across the country to supplement their financial needs for procuring various inputs related to agriculture and allied activities as well as domestic needs.",
+          "beneficiaries": "All landholding farmer families, subject to certain exclusion criteria."
+        },
+        {
+          "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+          "description": "A crop insurance scheme that provides financial support to farmers suffering crop loss/damage arising out of unforeseen events. It aims to stabilize farmers' income, encourage them to adopt innovative practices, and ensure food security.",
+          "beneficiaries": "Farmers who have taken crop loans from financial institutions and those who opt for it voluntarily."
+        },
+        {
+          "name": "Kisan Credit Card (KCC) Scheme",
+          "description": "A credit delivery mechanism aimed at providing adequate and timely credit support to farmers for their cultivation needs, including purchase of inputs, post-harvest expenses, and working capital for allied activities.",
+          "beneficiaries": "Farmers engaged in agriculture and allied activities."
+        }
+      ]
+    },
+    {
+      "scheme_type": "Maharashtra Government",
+      "schemes": [
+        {
+          "name": "Mahatma Jyotirao Phule Shetkari Karj Mukti Yojana",
+          "description": "A farm loan waiver scheme launched by the Maharashtra government to provide relief to farmers burdened by debt.",
+          "beneficiaries": "Eligible farmers with outstanding crop loans."
+        },
+        {
+          "name": "Chief Minister Solar Agriculture Feeder Scheme (Mukhyamantri Saur Krushi Vahini Yojana)",
+          "description": "Aims to provide reliable and affordable daytime electricity to agricultural pumps through solar feeders, reducing dependency on conventional power sources and improving irrigation.",
+          "beneficiaries": "Farmers using agricultural pumps in designated areas."
+        },
+        {
+          "name": "Dr. Panjabrao Deshmukh Krishi Sanjivani Yojana (PoCRA)",
+          "description": "A climate-resilient agriculture project focused on improving the adaptive capacity of small and marginal farmers in drought-prone areas through sustainable agricultural practices and infrastructure development.",
+          "beneficiaries": "Small and marginal farmers in drought-prone districts of Maharashtra."
+        }
+      ]
+    }
+  ]
+}
