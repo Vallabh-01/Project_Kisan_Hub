@@ -68,7 +68,7 @@ const GovSchemes = () => {
                     <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="gov-icons">
-                    <Link to="/"><FaTachometerAlt /></Link>
+                    <Link to="/dashboard"><FaTachometerAlt /></Link>
                     <Link to="/weather"><FaCloudSun /></Link>
                     <Link to="/MandiPrices"><FaStore /></Link>
                     <Link to="/schemes"><FaLandmark className="active" /></Link>

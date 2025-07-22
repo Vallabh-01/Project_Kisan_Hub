@@ -19,6 +19,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import DistrictSelect from "../Components/DistrictSelect";
 
 ChartJS.register(
     LineElement,
@@ -33,16 +34,16 @@ ChartJS.register(
 const MandiPrices = () => {
     const [mandiData, setMandiData] = useState([]);
     const [tips, setTips] = useState({});
-useEffect(() => {
-  fetch("/src/Data/tips.json")
-    .then((res) => res.json())
-    .then((data) => setTips(data))
-    .catch((err) => console.error("Error loading tips:", err));
-}, []);
-const getCropTip = (commodity) => {
-  const key = commodity?.toLowerCase();
-  return tips[key] || "Follow best practices to increase yield.";
-};
+    useEffect(() => {
+        fetch("/src/Data/tips.json")
+            .then((res) => res.json())
+            .then((data) => setTips(data))
+            .catch((err) => console.error("Error loading tips:", err));
+    }, []);
+    const getCropTip = (commodity) => {
+        const key = commodity?.toLowerCase();
+        return tips[key] || "Follow best practices to increase yield.";
+    };
 
 
     const [districts, setDistricts] = useState([]);
@@ -78,7 +79,7 @@ const getCropTip = (commodity) => {
                     <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="Mandi-icons">
-                    <Link to="/"><FaTachometerAlt /></Link>
+                    <Link to="/dashboard"><FaTachometerAlt /></Link>
                     <Link to="/weather"><FaCloudSun /></Link>
                     <Link to={`/MandiPrices?district=${selectedDistrict}`}> <FaStore className="active" /></Link>
                     <Link to="/GovSchemes"><FaLandmark /></Link>
@@ -88,11 +89,11 @@ const getCropTip = (commodity) => {
 
             <main className="content-area">
                 <header className="search-section">
-                    <select className="search-input" value={selectedDistrict} onChange={handleDistrictChange}>
-                        {districts.map((district, idx) => (
-                            <option key={idx} value={district}>{district}</option>
-                        ))}
-                    </select>
+                    <DistrictSelect
+                        districts={districts}
+                        selectedDistrict={selectedDistrict}
+                        onChange={handleDistrictChange}
+                    />
                 </header>
 
                 <section className="price-table-section">
@@ -166,12 +167,12 @@ const getCropTip = (commodity) => {
                     </div>
 
                     <div className="tips-card">
-  {mandiData.length > 0 ? (
-    <p>{getCropTip(mandiData[0].Commodity)}</p>
-  ) : (
-    <p>Loading tips...</p>
-  )}
-</div>
+                        {mandiData.length > 0 ? (
+                            <p>{getCropTip(mandiData[0].Commodity)}</p>
+                        ) : (
+                            <p>Loading tips...</p>
+                        )}
+                    </div>
 
                 </section>
 

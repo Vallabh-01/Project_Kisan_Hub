@@ -2,7 +2,7 @@
 // src/Pages/Weather.jsx
 import React, { useState, useEffect } from "react";
 import "./Weather.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import {
   FaTachometerAlt,
@@ -11,6 +11,7 @@ import {
   FaLandmark,
   FaCog,
 } from "react-icons/fa";
+import DistrictSelect from "../Components/DistrictSelect";
 
 const districts = [
   "Beed", "Yavatmal", "Nagpur", "Pune", "Nashik",
@@ -18,6 +19,7 @@ const districts = [
 ];
 
 const Weather = () => {
+  const navigate = useNavigate();
   const [selectedDistrict, setSelectedDistrict] = useState("Beed");
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
@@ -41,6 +43,11 @@ const Weather = () => {
       setSearchInput("");
     }
   };
+
+  const handleDistrictChange = (e) => {
+        const district = e.target.value;
+        navigate(`/MandiPrices?district=${district}`);
+    };
 
   // Fetch current weather and forecast
   useEffect(() => {
@@ -141,7 +148,7 @@ const Weather = () => {
           <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
         </div>
         <nav className="weather-icons">
-          <Link to="/"><FaTachometerAlt /></Link>
+          <Link to="/dashboard"><FaTachometerAlt /></Link>
           <Link to="/weather"><FaCloudSun className="active" /></Link>
           <Link to="/MandiPrices"><FaStore /></Link>
           <Link to="/GovSchemes"><FaLandmark /></Link>
@@ -152,8 +159,11 @@ const Weather = () => {
       <main className="weather-main">
         <div className="weather-search">
           <div className="location-display">
-            📍 {selectedDistrict} 
-            <button onClick={handleChangeLocation}>Change</button>
+            <DistrictSelect
+              districts={districts}
+              selectedDistrict={selectedDistrict}
+              onChange={handleDistrictChange}
+            />
           </div>
         </div>
 

@@ -6,18 +6,19 @@ import MandiPrices from "./Pages/MandiPrices";
 import GovSchemes from "./Pages/GovSchemes";
 import Signup from './Pages/Signup';
 import Login from "./Pages/Login";
+import HeroSection from "./Pages/HeroSection";
 
 function App() {
   return (
-   <Routes>
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/login" element={<Login />} />
-
-  <Route path="/" element={<Dashboard />} />
-  <Route path="/weather" element={<Weather />} />
-  <Route path="/MandiPrices" element={<MandiPrices />} />
-  <Route path="/GovSchemes" element={<GovSchemes />} />
-</Routes>
+    <Routes>
+      <Route path="/" element={<HeroSection />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/weather" element={<Weather />} />
+      <Route path="/MandiPrices" element={<MandiPrices />} />
+      <Route path="/GovSchemes" element={<GovSchemes />} />
+    </Routes>
   );
 }
 

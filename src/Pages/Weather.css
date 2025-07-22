@@ -1,9 +1,10 @@
-/* src/Pages/Weather.css */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
 .weather-container {
     display: flex;
     height: 100vh;
     background-color: #e0dfdf;
+    font-family: "Comic Neue", cursive;
 }
 
 .weather-sidebar {
@@ -113,7 +114,7 @@
     padding: 15px;
     border-radius: 10px;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .location-modal h3 {
@@ -214,7 +215,6 @@
     align-items: center;
     justify-content: center;
     min-width: 60px;
-  
     text-align: center;
     border-radius: 20px;
     height: 90px;
@@ -363,17 +363,17 @@
     .weather-top-cards {
         flex-direction: column;
     }
-    
+
     .small-card,
     .wide-card {
         flex: none;
         width: 100%;
     }
-    
+
     .weather-bottom-cards {
         flex-direction: column;
     }
-    
+
     .forecast-container {
         justify-content: flex-start;
     }
@@ -383,12 +383,12 @@
     .weather-main {
         padding: 0 20px;
     }
-    
+
     .weather-search {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .weather-search input {
         width: 250px;
     }

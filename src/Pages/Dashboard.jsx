@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
+import DistrictSelect from "../Components/DistrictSelect";
 import {
   FaTachometerAlt,
   FaCloudSun,
@@ -24,7 +25,6 @@ const Dashboard = () => {
   const [mandiData, setMandiData] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [schemes, setSchemes] = useState([]);
-  const handleChangeLocation = () => setShowLocationModal(!showLocationModal);
   const handleSelectDistrict = (district) => {
     setSelectedDistrict(district);
     setShowLocationModal(false);
@@ -177,7 +177,7 @@ const Dashboard = () => {
         </div>
         <div className="main-text">Welcome to Kisan Hub</div>
         <nav className="nav-links">
-          <Link to="/" ><FaTachometerAlt className="icon" /> Dashboard</Link>
+          <Link to="/dashboard" ><FaTachometerAlt className="icon" /> Dashboard</Link>
           <Link to="/weather"><FaCloudSun className="icon" /> Weather</Link>
           <Link to="/MandiPrices"><FaStore className="icon" /> Mandi Prices</Link>
           <Link to="/GovSchemes"><FaLandmark className="icon" /> Gov. Schemes</Link>
@@ -194,7 +194,11 @@ const Dashboard = () => {
       <main className="dashboard-content">
         <div className="top-bar">
           <div className="location-display">
-            📍 {selectedDistrict} <button onClick={handleChangeLocation}>Change</button>
+            <DistrictSelect
+              districts={districts}
+              selectedDistrict={selectedDistrict}
+              onChange={e => setSelectedDistrict(e.target.value)}
+            />
           </div>
         </div>
 

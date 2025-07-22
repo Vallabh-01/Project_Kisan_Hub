@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Comic Neue", cursive;
   background-color: #f5f5f5;
 }
 
@@ -58,7 +60,7 @@ body {
 }
 
 .nav-links .active {
-  border:2px solid #C4CE5F;
+  border: 2px solid #C4CE5F;
   border-radius: 30px;
   color: white;
   padding-left: 10px;
@@ -103,7 +105,7 @@ body {
 
 .top-bar {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
 }
 
@@ -247,7 +249,6 @@ body {
   margin-top: 8px;
 }
 
-
 .forecast-row {
   display: flex;
   gap: 10px;
@@ -343,7 +344,7 @@ body {
   padding: 15px;
   border-radius: 10px;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .location-modal h3 {
@@ -375,7 +376,6 @@ body {
 
 .card.large {
   padding: 16px;
-  /* height: auto; */
   min-height: 220px;
   overflow: hidden;
   display: flex;
@@ -383,4 +383,3 @@ body {
   justify-content: center;
   box-sizing: border-box;
 }
-
