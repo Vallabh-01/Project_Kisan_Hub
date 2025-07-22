@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.signup-page {
+  height: 100vh;
+  background-size: 1280px 700px;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 80px;
+   font-family: "Comic Neue", cursive;
+}
+
+.signup-form-container {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 25px;
+  max-width: 280px;
+  width: 90%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.signup-logo {
+  display: block;
+  margin: 0 auto 15px;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 50px;
+}
+
+.signup-form h2 {
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.signup-form input {
+  width: 86%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 20px;
+   font-family: "Comic Neue", cursive;
+   font-weight: 600;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.signup-form button {
+  width: 90%;
+  padding: 12px;
+  border: none;
+  background-color: #2e4e46;
+  color: white;
+  border-radius: 20px;
+   font-family: "Comic Neue", cursive;
+  margin-left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.signup-form button:hover {
+  background-color: #244038;
+}
+
+.login-link {
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-link a {
+  color: #2e4e46;
+  text-decoration: underline;
+}
