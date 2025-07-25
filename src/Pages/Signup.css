@@ -74,3 +74,17 @@
   color: #2e4e46;
   text-decoration: underline;
 }
+
+.error-msg {
+  color: red;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.success-msg {
+  color: green;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+}

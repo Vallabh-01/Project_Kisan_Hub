@@ -7,6 +7,7 @@ import GovSchemes from "./Pages/GovSchemes";
 import Signup from './Pages/Signup';
 import Login from "./Pages/Login";
 import HeroSection from "./Pages/HeroSection";
+import UserProfile from "./Pages/UserProfile";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/weather" element={<Weather />} />
       <Route path="/MandiPrices" element={<MandiPrices />} />
       <Route path="/GovSchemes" element={<GovSchemes />} />
+      <Route path="/userprofile" element={<UserProfile/>} />
     </Routes>
   );
 }

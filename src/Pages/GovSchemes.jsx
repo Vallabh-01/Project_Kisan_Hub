@@ -72,7 +72,7 @@ const GovSchemes = () => {
                     <Link to="/weather"><FaCloudSun /></Link>
                     <Link to="/MandiPrices"><FaStore /></Link>
                     <Link to="/schemes"><FaLandmark className="active" /></Link>
-                    <FaCog />
+                    <Link to="/userprofile"><FaCog className="icon" /> </Link>
                 </nav>
             </aside>
 

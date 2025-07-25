@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.profile-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Comic Neue", cursive;
+}
+
+/* Sidebar */
+.profile-sidebar {
+   width: 70px;
+  background-color: #2e4e46;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-logo {
+    width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.profile-logo img {
+     width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-icons {
+     display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-size: 1.5rem;
+  color: white;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.profile-icons a,
+.profile-icons svg {
+ color: white;
+  text-decoration: none;
+}
+
+.profile-icons .active {
+  border: 2px solid #C4CE5F;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+/* Main Content */
+.profile-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Comic Neue", cursive;
+  min-height: 100px;
+}
+
+/* Profile Form Card */
+.profile-form {
+  background-color: #d1d1d1;
+  border-radius: 20px;
+  padding: 30px;
+  width: 70%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-family: "Comic Neue", cursive;
+  margin: 40px 0;
+}
+
+/* Profile Picture Upload */
+.profile-pic {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-circle {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  border: 2px dashed #aaa;
+}
+
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Grid layout for fields */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Form inputs */
+.profile-grid input{
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 80%;
+  font-family: "Comic Neue", cursive;
+  font-size: 14px;
+}
+.profile-grid select {
+  padding: 10px;
+  font-family: "Comic Neue", cursive;
+  border-radius: 10px;
+  border: none;
+  width: 90%;
+  font-size: 14px;
+}
+
+/* Save Button */
+button {
+  padding: 12px;
+  background-color: #2e4e46;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: "Comic Neue", cursive;
+  font-weight: bold;
+  width: 40%;
+  margin: 0 auto;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #24413a;
+}

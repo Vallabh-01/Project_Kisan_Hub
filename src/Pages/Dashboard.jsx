@@ -181,7 +181,7 @@ const Dashboard = () => {
           <Link to="/weather"><FaCloudSun className="icon" /> Weather</Link>
           <Link to="/MandiPrices"><FaStore className="icon" /> Mandi Prices</Link>
           <Link to="/GovSchemes"><FaLandmark className="icon" /> Gov. Schemes</Link>
-          <a><FaCog className="icon" /> Settings</a>
+          <Link to="/userprofile"><FaCog className="icon" /> Profile</Link>
         </nav>
         <div className="quote-box">
           <strong>🌱 Quote of the Day</strong>

@@ -11,7 +11,7 @@ function HeroSection() {
             <div className="hero-content">
                 <h1>Track. Plan. Grow.</h1>
                 <p>One Dashboard All your Answers..</p>
-                <a href="/dashboard" className="cta-button">Enter My Kisan Hub</a>
+                <a href="/signup" className="cta-button">Enter My Kisan Hub</a>
             </div>
         </div>
     );

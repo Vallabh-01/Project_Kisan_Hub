@@ -30,7 +30,7 @@ const Weather = () => {
   const [historicalWeather, setHistoricalWeather] = useState([]);
 
   const handleChangeLocation = () => setShowLocationModal(!showLocationModal);
-  
+
   const handleSelectDistrict = (district) => {
     setSelectedDistrict(district);
     setShowLocationModal(false);
@@ -45,9 +45,9 @@ const Weather = () => {
   };
 
   const handleDistrictChange = (e) => {
-        const district = e.target.value;
-        navigate(`/MandiPrices?district=${district}`);
-    };
+    const district = e.target.value;
+    navigate(`/MandiPrices?district=${district}`);
+  };
 
   // Fetch current weather and forecast
   useEffect(() => {
@@ -61,13 +61,13 @@ const Weather = () => {
           setWeather(data);
           // Extract sun/moon data
           setSunMoonData({
-            sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-IN', { 
-              hour: '2-digit', 
-              minute: '2-digit' 
+            sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-IN', {
+              hour: '2-digit',
+              minute: '2-digit'
             }),
-            sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString('en-IN', { 
-              hour: '2-digit', 
-              minute: '2-digit' 
+            sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString('en-IN', {
+              hour: '2-digit',
+              minute: '2-digit'
             })
           });
         }
@@ -95,7 +95,7 @@ const Weather = () => {
           // Get historical data for temperature graph (last 4 days)
           const currentTime = new Date();
           const historicalData = [];
-          
+
           for (let i = 0; i < Math.min(forecastData.list.length, 32); i += 8) { // Every 8th entry is roughly 1 day (3-hour intervals)
             const item = forecastData.list[i];
             const date = new Date(item.dt * 1000);
@@ -105,7 +105,7 @@ const Weather = () => {
               date: date.toISOString().split('T')[0]
             });
           }
-          
+
           setHistoricalWeather(historicalData.slice(0, 4));
         }
       } catch (err) {
@@ -152,7 +152,7 @@ const Weather = () => {
           <Link to="/weather"><FaCloudSun className="active" /></Link>
           <Link to="/MandiPrices"><FaStore /></Link>
           <Link to="/GovSchemes"><FaLandmark /></Link>
-          <FaCog />
+          <Link to="/userprofile"><FaCog className="icon" /> </Link>
         </nav>
       </aside>
 
@@ -205,14 +205,14 @@ const Weather = () => {
               <p>Loading current weather...</p>
             )}
           </div>
-          
+
           <div className="weather-card wide-card">
             <h3>5 Day Weather Forecast</h3>
             <div className="forecast-container">
               {forecast.length > 0 ? forecast.map((item, idx) => (
                 <div key={idx} className="forecast-item">
                   <div className="forecast-day">
-                    {new Date(item.dt_txt).toLocaleDateString("en-IN", { 
+                    {new Date(item.dt_txt).toLocaleDateString("en-IN", {
                       weekday: "short"
                     })}
                   </div>
@@ -260,7 +260,7 @@ const Weather = () => {
                 <p>Loading sun data...</p>
               )}
             </div>
-            
+
             <div className="weather-card-left">
               {/* <h4>🌙 Moon Phase Info</h4> */}
               {weather ? (
@@ -274,37 +274,37 @@ const Weather = () => {
               )}
             </div>
           </div>
-          
+
           <div className="weather-card graph-card">
             <h4>📊 Temperature Trend (Last 4 Days)</h4>
             {historicalWeather.length > 0 ? (
               <ResponsiveContainer width="100%" height={120}>
                 <LineChart data={historicalWeather}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis 
-                    dataKey="name" 
+                  <XAxis
+                    dataKey="name"
                     tick={{ fontSize: 10 }}
                     axisLine={false}
                   />
-                  <YAxis 
+                  <YAxis
                     domain={['dataMin - 2', 'dataMax + 2']}
                     tick={{ fontSize: 10 }}
                     axisLine={false}
                     label={{ value: '°C', angle: -90, position: 'insideLeft' }}
                   />
-                  <Tooltip 
+                  <Tooltip
                     formatter={(value) => [`${value}°C`, 'Temperature']}
                     labelStyle={{ color: '#333' }}
-                    contentStyle={{ 
-                      backgroundColor: '#f8f9fa', 
+                    contentStyle={{
+                      backgroundColor: '#f8f9fa',
                       border: '1px solid #0a812a',
-                      borderRadius: '4px' 
+                      borderRadius: '4px'
                     }}
                   />
-                  <Line 
-                    type="monotone" 
-                    dataKey="temperature" 
-                    stroke="#0a812a" 
+                  <Line
+                    type="monotone"
+                    dataKey="temperature"
+                    stroke="#0a812a"
                     strokeWidth={2}
                     dot={{ fill: '#0a812a', strokeWidth: 2, r: 4 }}
                     activeDot={{ r: 6, stroke: '#0a812a', strokeWidth: 2 }}

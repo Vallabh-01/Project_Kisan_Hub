@@ -83,8 +83,8 @@ const MandiPrices = () => {
                     <Link to="/weather"><FaCloudSun /></Link>
                     <Link to={`/MandiPrices?district=${selectedDistrict}`}> <FaStore className="active" /></Link>
                     <Link to="/GovSchemes"><FaLandmark /></Link>
-                    <FaCog />
-                </nav>
+                    <Link to="/userprofile"><FaCog className="icon" /></Link>
+                 </nav>
             </aside>
 
             <main className="content-area">
