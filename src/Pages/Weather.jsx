@@ -13,10 +13,6 @@ import {
 } from "react-icons/fa";
 import DistrictSelect from "../Components/DistrictSelect";
 
-const districts = [
-  "Beed", "Yavatmal", "Nagpur", "Pune", "Nashik",
-  "Aurangabad", "Latur", "Kolhapur", "Solapur"
-];
 
 const Weather = () => {
   const navigate = useNavigate();
@@ -28,6 +24,7 @@ const Weather = () => {
   const [weatherAlerts, setWeatherAlerts] = useState([]);
   const [sunMoonData, setSunMoonData] = useState(null);
   const [historicalWeather, setHistoricalWeather] = useState([]);
+  const [districts, setDistricts] = useState([]);
 
   const handleChangeLocation = () => setShowLocationModal(!showLocationModal);
 
@@ -46,8 +43,18 @@ const Weather = () => {
 
   const handleDistrictChange = (e) => {
     const district = e.target.value;
-    navigate(`/MandiPrices?district=${district}`);
+    setSelectedDistrict(district);
   };
+
+  useEffect(() => {
+  fetch("/src/Data/maharashtra-mandi-full.json")
+    .then(res => res.json())
+    .then(data => {
+      const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
+      setDistricts(uniqueDistricts);
+    })
+    .catch(err => console.error("Failed to load districts:", err));
+}, []);
 
   // Fetch current weather and forecast
   useEffect(() => {
@@ -82,8 +89,10 @@ const Weather = () => {
           const dailyForecasts = [];
           const seenDates = new Set();
 
+          const today = new Date().toISOString().split("T")[0];
           for (let item of forecastData.list) {
             const date = item.dt_txt.split(" ")[0];
+            if (date === today) continue; // Skip today
             if (!seenDates.has(date)) {
               dailyForecasts.push(item);
               seenDates.add(date);
@@ -157,15 +166,13 @@ const Weather = () => {
       </aside>
 
       <main className="weather-main">
-        <div className="weather-search">
-          <div className="location-display">
-            <DistrictSelect
-              districts={districts}
-              selectedDistrict={selectedDistrict}
-              onChange={handleDistrictChange}
-            />
-          </div>
-        </div>
+        <header className="search-section">
+                    <DistrictSelect
+                        districts={districts}
+                        selectedDistrict={selectedDistrict}
+                        onChange={handleDistrictChange}
+                    />
+                </header>
 
         {showLocationModal && (
           <div className="location-modal">
@@ -276,7 +283,7 @@ const Weather = () => {
           </div>
 
           <div className="weather-card graph-card">
-            <h4>📊 Temperature Trend (Last 4 Days)</h4>
+            <h4>📊 Temperature Trend (Next 4 Days)</h4>
             {historicalWeather.length > 0 ? (
               <ResponsiveContainer width="100%" height={120}>
                 <LineChart data={historicalWeather}>

@@ -86,11 +86,21 @@ const GovSchemes = () => {
                             <div key={index} className="scheme-card">
                                 <h3>{scheme.name}</h3>
                                 <p>{scheme.type}</p>
+                                {scheme.link && (
+                                    <a
+                                        href={scheme.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="scheme-link"
+                                    >
+                                        Learn More →
+                                    </a>
+                                )}
                             </div>
                         ))}
                     </div>
-
                 </section>
+
 
                 <section className="related-news-section">
                     <h2>Related News</h2>

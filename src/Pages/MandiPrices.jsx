@@ -44,8 +44,6 @@ const MandiPrices = () => {
         const key = commodity?.toLowerCase();
         return tips[key] || "Follow best practices to increase yield.";
     };
-
-
     const [districts, setDistricts] = useState([]);
     const location = useLocation();
     const navigate = useNavigate();

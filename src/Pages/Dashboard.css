@@ -62,7 +62,7 @@ body {
 .nav-links .active {
   border: 2px solid #C4CE5F;
   border-radius: 30px;
-  color: white;
+  color: burlywood;
   padding-left: 10px;
 }
 

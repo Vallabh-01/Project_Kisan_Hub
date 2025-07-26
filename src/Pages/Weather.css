@@ -3,7 +3,7 @@
 .weather-container {
     display: flex;
     height: 100vh;
-    background-color: #e0dfdf;
+    background-color: white;
     font-family: "Comic Neue", cursive;
 }
 
@@ -50,6 +50,7 @@ color: white;
       border: 2px solid #C4CE5F;
   border-radius: 8px;
   padding: 5px;
+    color: burlywood;
 }
 
 .weather-main {
@@ -63,27 +64,22 @@ color: white;
     overflow-y: auto;
 }
 
-.weather-search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+
+.search-section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
 
-.weather-search form {
-    display: flex;
+.search-input {
+  padding: 10px;
+  width: 240px;
+  border-radius: 15px;
+  border: none;
+  background: #e2e2e2;
+  font-family: inherit;
 }
 
-.weather-search input {
-    width: 300px;
-    padding: 8px 15px;
-    background-color: white;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    outline: none;
-    font-size: 0.95rem;
-}
 
 .location-display {
     display: flex;
@@ -107,7 +103,7 @@ color: white;
     position: absolute;
     top: 70px;
     left: 200px;
-    background: white;
+    background: rgb(240, 240, 240);
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 10px;

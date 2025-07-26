@@ -3,18 +3,7 @@ import "./Dashboard.css";
 import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
 import DistrictSelect from "../Components/DistrictSelect";
-import {
-  FaTachometerAlt,
-  FaCloudSun,
-  FaStore,
-  FaLandmark,
-  FaCog,
-} from "react-icons/fa";
-
-const districts = [
-  "Beed", "Yavatmal", "Nagpur", "Pune", "Nashik",
-  "Aurangabad", "Latur", "Kolhapur", "Solapur"
-];
+import {FaTachometerAlt,FaCloudSun,FaStore,FaLandmark,FaCog,} from "react-icons/fa";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
@@ -22,6 +11,7 @@ const Dashboard = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
+  const [districts, setDistricts] = useState([]);
   const [mandiData, setMandiData] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [schemes, setSchemes] = useState([]);
@@ -49,6 +39,15 @@ const Dashboard = () => {
     fetchQuote();
   }, []);
 
+useEffect(() => {
+  fetch("/src/Data/maharashtra-mandi-full.json")
+    .then(res => res.json())
+    .then(data => {
+      const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
+      setDistricts(uniqueDistricts);
+    })
+    .catch(err => console.error("Failed to load districts:", err));
+}, []);
 
   useEffect(() => {
     const fetchWeather = async () => {

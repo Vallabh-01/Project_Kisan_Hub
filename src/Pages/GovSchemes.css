@@ -49,6 +49,7 @@
 .gov-icons .active {
    border: 2px solid #C4CE5F;
   border-radius: 8px;
+  color: burlywood;
   padding: 5px;
 }
 
@@ -73,7 +74,7 @@
 .scheme-card {
   background-color: #d1d1d1;
   border-radius: 20px;
-  height: 100px;
+  height: 114px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -119,4 +120,21 @@
 
 .news-item:hover {
   color: #1d2f29;
+}
+
+/* GovSchemes.css */
+
+.scheme-link {
+  display: inline-block;
+  margin-top: 4px;
+  color: #0066cc;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.scheme-link:hover {
+  color: #004a99;
+  text-decoration: underline;
+  transform: translateX(2px);
 }
