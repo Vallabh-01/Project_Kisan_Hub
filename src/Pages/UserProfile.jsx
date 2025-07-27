@@ -4,6 +4,9 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
 import {
   FaTachometerAlt,
   FaCloudSun,
@@ -26,6 +29,15 @@ const UserProfile = () => {
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login"); // redirect to login page
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   const districts = ["Beed", "Pune", "Nashik", "Nagpur", "Aurangabad"];
 
@@ -58,22 +70,30 @@ const UserProfile = () => {
     e.preventDefault();
     try {
       let imageURL = userData.profileImage;
+
       if (selectedImage && userId) {
         const storageRef = ref(storage, `profileImages/${userId}`);
         await uploadBytes(storageRef, selectedImage);
         imageURL = await getDownloadURL(storageRef);
       }
 
-      await setDoc(doc(db, "users", userId), {
+      const updatedData = {
         ...userData,
         profileImage: imageURL,
-      });
+      };
+
+      await setDoc(doc(db, "users", userId), updatedData);
+
+      // ✅ Immediately update the UI
+      setUserData(updatedData);
+      setSelectedImage(null); // optional: reset file input
 
       alert("✅ Profile updated successfully!");
     } catch (err) {
       console.error("Error updating profile:", err);
     }
   };
+
 
   return (
     <div className="profile-container">
@@ -166,7 +186,25 @@ const UserProfile = () => {
           {/* Save Button */}
           <button type="submit">Save Changes</button>
         </form>
-
+        <button
+          onClick={handleLogout}
+          style={{
+            padding: "12px",
+            backgroundColor: "#c0392b",
+            color: "white",
+            border: "none",
+            borderRadius: "10px",
+            fontFamily: "Comic Neue, cursive",
+            fontWeight: "bold",
+            width: "40%",
+            marginTop: "20px",
+            fontSize: "15px",
+            cursor: "pointer",
+            transition: "background 0.3s ease"
+          }}
+        >
+          Logout
+        </button>
       </main>
     </div>
   );
