@@ -39,6 +39,9 @@
   margin-bottom: 10px;
   position: relative;
   top: -20px;
+  animation: fadeSlideUp 1.2s ease-out forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
 }
 
 .cta-button {
@@ -55,4 +58,50 @@
     display: block;
     text-align: center;
     text-decoration: none;
+      animation: fadeSlideUp 1.2s ease-out forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+/* ANIMATIONS */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply animations */
+.hero-content {
+  animation: fadeSlideUp 1.2s ease-out forwards;
+}
+
+.hero-content h1 {
+  animation: bounceIn 1s ease-out;
+}
+
+/* Button hover animation */
+.cta-button:hover {
+  background-color: #3c6558;
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }

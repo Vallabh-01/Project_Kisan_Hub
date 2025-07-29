@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
 import DistrictSelect from "../Components/DistrictSelect";
+import schemesData from '../Data/gov-schemes.json';
 import {FaTachometerAlt,FaCloudSun,FaStore,FaLandmark,FaCog,} from "react-icons/fa";
 
 const Dashboard = () => {
@@ -15,12 +16,13 @@ const Dashboard = () => {
   const [mandiData, setMandiData] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [schemes, setSchemes] = useState([]);
+
   const handleSelectDistrict = (district) => {
     setSelectedDistrict(district);
     setShowLocationModal(false);
   };
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchQuote = async () => {
       try {
         const res = await fetch("https://zenquotes.io/api/today");
@@ -137,32 +139,11 @@ useEffect(() => {
     fetchAlerts();
   }, []);
 
-  useEffect(() => {
-    const fetchSchemes = async () => {
-      try {
-        const res = await fetch(
-          `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWS_API_KEY}&q=farmer+scheme+OR+government+scheme+OR+kisan+yojana&country=in&language=en`
-        );
-        const data = await res.json();
-
-        if (data?.results?.length > 0) {
-          // Filter and limit to 3
-          const filtered = data.results.filter(item =>
-            item.title?.toLowerCase().includes("scheme") || item.title?.toLowerCase().includes("yojana")
-          );
-          setSchemes(filtered.slice(0, 3));
-        } else {
-          setSchemes([]);
-        }
-      } catch (err) {
-        console.error("Error fetching schemes:", err);
-        setSchemes([]);
-      }
-    };
-
-    fetchSchemes();
+ useEffect(() => {
+    const allSchemes = schemesData.government_schemes.flatMap(item => item.schemes);
+    const shuffled = allSchemes.sort(() => 0.5 - Math.random());
+    setSchemes(shuffled.slice(0, 3));
   }, []);
-
 
   return (
     <div className="dashboard-container">
@@ -186,8 +167,6 @@ useEffect(() => {
           <strong>🌱 Quote of the Day</strong>
           <p style={{ fontSize: "0.9rem", marginTop: "5px" }}>{quote}</p>
         </div>
-        {/* 
-        <div className="settings"><FaCog className="icon" /> Settings</div> */}
       </aside>
 
       <main className="dashboard-content">
@@ -288,34 +267,34 @@ useEffect(() => {
 
             {/* Schemes — Only 3 Fixed Cards */}
             <div className="card tall">
-              {schemes[0] ? (
-                <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
-                  📜 {schemes[0].title.length > 75 ? schemes[0].title.slice(0, 75) + "..." : schemes[0].title}
-                </a>
-              ) : (
-                <p>Loading Scheme 1...</p>
-              )}
-            </div>
+        {schemes[0] ? (
+          <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
+            📜 {schemes[0].name.length > 75 ? schemes[0].name.slice(0, 75) + "..." : schemes[0].name}
+          </a>
+        ) : (
+          <p>Loading Scheme 1...</p>
+        )}
+      </div>
 
-            <div className="card tall">
-              {schemes[1] ? (
-                <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
-                  📜 {schemes[1].title.length > 75 ? schemes[1].title.slice(0, 75) + "..." : schemes[1].title}
-                </a>
-              ) : (
-                <p>Loading Scheme 2...</p>
-              )}
-            </div>
+      <div className="card tall">
+        {schemes[1] ? (
+          <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
+            📜 {schemes[1].name.length > 75 ? schemes[1].name.slice(0, 75) + "..." : schemes[1].name}
+          </a>
+        ) : (
+          <p>Loading Scheme 2...</p>
+        )}
+      </div>
 
-            <div className="card tall">
-              {schemes[2] ? (
-                <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
-                  📜 {schemes[2].title.length > 75 ? schemes[2].title.slice(0, 75) + "..." : schemes[2].title}
-                </a>
-              ) : (
-                <p>Loading Scheme 3...</p>
-              )}
-            </div>
+      <div className="card tall">
+        {schemes[2] ? (
+          <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
+            📜 {schemes[2].name.length > 75 ? schemes[2].name.slice(0, 75) + "..." : schemes[2].name}
+          </a>
+        ) : (
+          <p>Loading Scheme 3...</p>
+        )}
+      </div>
           </div>
 
 

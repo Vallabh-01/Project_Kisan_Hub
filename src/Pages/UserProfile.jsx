@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { auth, db, storage } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { onAuthStateChanged } from "firebase/auth";
-import { Link } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-
-import {
-  FaTachometerAlt,
-  FaCloudSun,
-  FaStore,
-  FaLandmark,
-  FaCog,
-} from "react-icons/fa";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import mandiData from "../data/maharashtra-mandi-full.json";
+import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-icons/fa";
 import "./UserProfile.css";
 
 const UserProfile = () => {
@@ -27,19 +21,15 @@ const UserProfile = () => {
     about: "",
     profileImage: "",
   });
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate("/login"); // redirect to login page
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
 
-  const districts = ["Beed", "Pune", "Nashik", "Nagpur", "Aurangabad"];
+  const districts = Array.from(
+    new Set(mandiData.map(item => item.District).filter(Boolean))
+  ).sort();
+  console.log("Loaded districts from JSON:", districts);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -57,12 +47,17 @@ const UserProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      setSelectedImage(e.target.files[0]);
+      const file = e.target.files[0];
+      setSelectedImage(file);
+      setUserData((prev) => ({
+        ...prev,
+        profileImage: URL.createObjectURL(file),
+      }));
     }
   };
 
@@ -70,11 +65,18 @@ const UserProfile = () => {
     e.preventDefault();
     try {
       let imageURL = userData.profileImage;
+      // Upload image to Cloudinary if a new one is selected
+      if (selectedImage) {
+        const formData = new FormData();
+        formData.append("file", selectedImage);
+        formData.append("upload_preset", "kisan_unsigned"); // preset
+        formData.append("cloud_name", "dgve1t8bu"); // cloud name
 
-      if (selectedImage && userId) {
-        const storageRef = ref(storage, `profileImages/${userId}`);
-        await uploadBytes(storageRef, selectedImage);
-        imageURL = await getDownloadURL(storageRef);
+        const res = await axios.post(
+          "https://api.cloudinary.com/v1_1/dgve1t8bu/image/upload",
+          formData
+        );
+        imageURL = res.data.secure_url; // Get the uploaded image URL
       }
 
       const updatedData = {
@@ -83,41 +85,62 @@ const UserProfile = () => {
       };
 
       await setDoc(doc(db, "users", userId), updatedData);
-
-      // ✅ Immediately update the UI
       setUserData(updatedData);
-      setSelectedImage(null); // optional: reset file input
+      setSelectedImage(null);
 
-      alert("✅ Profile updated successfully!");
+      toast.success("✅ Profile updated successfully!");
     } catch (err) {
-      console.error("Error updating profile:", err);
+      console.error("Error uploading to Cloudinary or saving profile:", err);
+      toast.error("Something went wrong, Check console for details.");
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <div className="profile-container">
       {/* Sidebar */}
       <aside className="profile-sidebar">
         <div className="profile-logo">
-          <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
+          <img
+            src="src/assets/Hd Logo normal.png"
+            alt="Logo"
+            className="logo-img"
+          />
         </div>
         <nav className="profile-icons">
-          <Link to="/dashboard"><FaTachometerAlt /></Link>
-          <Link to="/weather"><FaCloudSun /></Link>
-          <Link to="/MandiPrices"><FaStore /></Link>
-          <Link to="/GovSchemes"><FaLandmark /></Link>
+          <Link to="/dashboard">
+            <FaTachometerAlt />
+          </Link>
+          <Link to="/weather">
+            <FaCloudSun />
+          </Link>
+          <Link to="/MandiPrices">
+            <FaStore />
+          </Link>
+          <Link to="/GovSchemes">
+            <FaLandmark />
+          </Link>
           <FaCog className="active" />
         </nav>
       </aside>
 
-      {/* Main Profile Content */}
+      {/* Main Content */}
       <main className="profile-content">
         <form className="profile-form" onSubmit={handleSubmit}>
-          {/* Profile Image Upload */}
+          {/* Profile Picture */}
           <div className="profile-pic">
             <label htmlFor="profileImage" className="profile-circle">
-              {userData.profileImage ? (
+              {selectedImage ? (
+                <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
+              ) : userData.profileImage ? (
                 <img src={userData.profileImage} alt="Profile" />
               ) : (
                 <span>Upload</span>
@@ -128,6 +151,7 @@ const UserProfile = () => {
               type="file"
               accept="image/*"
               onChange={handleImageChange}
+              key={selectedImage ? selectedImage.name : ""}
               style={{ display: "none" }}
             />
           </div>
@@ -147,7 +171,6 @@ const UserProfile = () => {
               value={userData.dob}
               onChange={handleChange}
             />
-
             <input
               type="text"
               name="lastName"
@@ -155,6 +178,7 @@ const UserProfile = () => {
               value={userData.lastName}
               onChange={handleChange}
             />
+
             <select
               name="district"
               value={userData.district}
@@ -183,28 +207,16 @@ const UserProfile = () => {
               onChange={handleChange}
             />
           </div>
-          {/* Save Button */}
-          <button type="submit">Save Changes</button>
+
+          {/* Button Row */}
+          <div className="button-row">
+            <button type="submit">Save Changes</button>
+            <button type="button" className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
         </form>
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "12px",
-            backgroundColor: "#c0392b",
-            color: "white",
-            border: "none",
-            borderRadius: "10px",
-            fontFamily: "Comic Neue, cursive",
-            fontWeight: "bold",
-            width: "40%",
-            marginTop: "20px",
-            fontSize: "15px",
-            cursor: "pointer",
-            transition: "background 0.3s ease"
-          }}
-        >
-          Logout
-        </button>
+        <ToastContainer position="top-right" autoClose={3000} />
       </main>
     </div>
   );
