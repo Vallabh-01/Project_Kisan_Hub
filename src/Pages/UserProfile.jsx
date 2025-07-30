@@ -116,19 +116,12 @@ const UserProfile = () => {
           />
         </div>
         <nav className="profile-icons">
-          <Link to="/dashboard">
-            <FaTachometerAlt />
-          </Link>
-          <Link to="/weather">
-            <FaCloudSun />
-          </Link>
-          <Link to="/MandiPrices">
-            <FaStore />
-          </Link>
-          <Link to="/GovSchemes">
-            <FaLandmark />
-          </Link>
-          <FaCog className="active" />
+          <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
+          <Link to="/weather" data-label="Weather"><FaCloudSun /></Link>
+          <Link to="/MandiPrices" data-label="Mandi Prices"><FaStore /></Link>
+          <Link to="/GovSchemes" data-label="Schemes"><FaLandmark /></Link>
+          <Link to="/userprofile" data-label="Profile"><FaCog className="active" /></Link>
+
         </nav>
       </aside>
 

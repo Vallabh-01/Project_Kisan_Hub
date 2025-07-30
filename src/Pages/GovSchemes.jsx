@@ -68,11 +68,12 @@ const GovSchemes = () => {
                     <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="gov-icons">
-                    <Link to="/dashboard"><FaTachometerAlt /></Link>
-                    <Link to="/weather"><FaCloudSun /></Link>
-                    <Link to="/MandiPrices"><FaStore /></Link>
-                    <Link to="/schemes"><FaLandmark className="active" /></Link>
-                    <Link to="/userprofile"><FaCog className="icon" /> </Link>
+                    <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
+                    <Link to="/weather" data-label="Weather"><FaCloudSun /></Link>
+                    <Link to="/MandiPrices" data-label="Mandi Prices"><FaStore /></Link>
+                    <Link to="/GovSchemes" data-label="Schemes"><FaLandmark className='active' /></Link>
+                    <Link to="/userprofile" data-label="Profile"><FaCog /></Link>
+
                 </nav>
             </aside>
 

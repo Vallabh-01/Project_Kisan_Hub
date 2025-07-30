@@ -77,12 +77,12 @@ const MandiPrices = () => {
                     <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="Mandi-icons">
-                    <Link to="/dashboard"><FaTachometerAlt /></Link>
-                    <Link to="/weather"><FaCloudSun /></Link>
-                    <Link to={`/MandiPrices?district=${selectedDistrict}`}> <FaStore className="active" /></Link>
-                    <Link to="/GovSchemes"><FaLandmark /></Link>
-                    <Link to="/userprofile"><FaCog className="icon" /></Link>
-                 </nav>
+                    <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
+                    <Link to="/weather" data-label="Weather"><FaCloudSun /></Link>
+                    <Link to={`/MandiPrices?district=${selectedDistrict}`}> <FaStore className="active" data-label="Mandi Prices" /></Link>
+                    <Link to="/GovSchemes" data-label="Schemes"><FaLandmark /></Link>
+                    <Link to="/userprofile" data-label="Profile"><FaCog /></Link>
+                </nav>
             </aside>
 
             <main className="content-area">

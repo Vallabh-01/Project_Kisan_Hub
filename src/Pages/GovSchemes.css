@@ -56,7 +56,7 @@
 .gov-content {
   flex: 1;
   padding: 40px;
-  background-color: #fefefe;
+  background-color: #DCE1E9;
 }
 
 .schemes-section h2 {
@@ -72,7 +72,7 @@
 }
 
 .scheme-card {
-  background-color: #d1d1d1;
+  background-color: #F0F7F4;
   border-radius: 20px;
   height: 114px;
   padding: 10px;
@@ -98,7 +98,7 @@
 }
 
 .news-card {
-  background-color: #d1d1d1;
+  background-color: #F0F7F4;
   border-radius: 20px;
   height: 40px;
   padding: 20px;

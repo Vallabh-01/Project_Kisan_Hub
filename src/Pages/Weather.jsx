@@ -47,14 +47,14 @@ const Weather = () => {
   };
 
   useEffect(() => {
-  fetch("/src/Data/maharashtra-mandi-full.json")
-    .then(res => res.json())
-    .then(data => {
-      const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
-      setDistricts(uniqueDistricts);
-    })
-    .catch(err => console.error("Failed to load districts:", err));
-}, []);
+    fetch("/src/Data/maharashtra-mandi-full.json")
+      .then(res => res.json())
+      .then(data => {
+        const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
+        setDistricts(uniqueDistricts);
+      })
+      .catch(err => console.error("Failed to load districts:", err));
+  }, []);
 
   // Fetch current weather and forecast
   useEffect(() => {
@@ -157,22 +157,23 @@ const Weather = () => {
           <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
         </div>
         <nav className="weather-icons">
-          <Link to="/dashboard"><FaTachometerAlt /></Link>
-          <Link to="/weather"><FaCloudSun className="active" /></Link>
-          <Link to="/MandiPrices"><FaStore /></Link>
-          <Link to="/GovSchemes"><FaLandmark /></Link>
-          <Link to="/userprofile"><FaCog className="icon" /> </Link>
+          <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
+          <Link to="/weather" data-label="Weather"><FaCloudSun className="active" /></Link>
+          <Link to="/MandiPrices" data-label="Mandi Prices"><FaStore /></Link>
+          <Link to="/GovSchemes" data-label="Schemes"><FaLandmark /></Link>
+          <Link to="/userprofile" data-label="Profile"><FaCog /></Link>
+
         </nav>
       </aside>
 
       <main className="weather-main">
         <header className="search-section">
-                    <DistrictSelect
-                        districts={districts}
-                        selectedDistrict={selectedDistrict}
-                        onChange={handleDistrictChange}
-                    />
-                </header>
+          <DistrictSelect
+            districts={districts}
+            selectedDistrict={selectedDistrict}
+            onChange={handleDistrictChange}
+          />
+        </header>
 
         {showLocationModal && (
           <div className="location-modal">
@@ -198,7 +199,7 @@ const Weather = () => {
                 <img
                   src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                   alt={weather.weather[0].main}
-                  style={{ width: '50px', height: '50px' }}
+                  style={{ width: '100px', height: '100px' }}
                 />
                 <div className="weather-details">
                   <h2>{Math.round(weather.main.temp)}°C</h2>
@@ -273,7 +274,6 @@ const Weather = () => {
               {weather ? (
                 <div>
                   <p>🌡️ Night Temp: {Math.round(weather.main.temp_min)}°C</p>
-                  <p>💨 Wind Speed: {weather.wind.speed} m/s</p>
                   <p>👁️ Visibility: {weather.visibility / 1000} km</p>
                 </div>
               ) : (

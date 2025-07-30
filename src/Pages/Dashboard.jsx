@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
 import DistrictSelect from "../Components/DistrictSelect";
 import schemesData from '../Data/gov-schemes.json';
-import {FaTachometerAlt,FaCloudSun,FaStore,FaLandmark,FaCog,} from "react-icons/fa";
+import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-icons/fa";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
@@ -22,7 +22,7 @@ const Dashboard = () => {
     setShowLocationModal(false);
   };
 
- useEffect(() => {
+  useEffect(() => {
     const fetchQuote = async () => {
       try {
         const res = await fetch("https://zenquotes.io/api/today");
@@ -41,15 +41,15 @@ const Dashboard = () => {
     fetchQuote();
   }, []);
 
-useEffect(() => {
-  fetch("/src/Data/maharashtra-mandi-full.json")
-    .then(res => res.json())
-    .then(data => {
-      const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
-      setDistricts(uniqueDistricts);
-    })
-    .catch(err => console.error("Failed to load districts:", err));
-}, []);
+  useEffect(() => {
+    fetch("/src/Data/maharashtra-mandi-full.json")
+      .then(res => res.json())
+      .then(data => {
+        const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
+        setDistricts(uniqueDistricts);
+      })
+      .catch(err => console.error("Failed to load districts:", err));
+  }, []);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -139,7 +139,7 @@ useEffect(() => {
     fetchAlerts();
   }, []);
 
- useEffect(() => {
+  useEffect(() => {
     const allSchemes = schemesData.government_schemes.flatMap(item => item.schemes);
     const shuffled = allSchemes.sort(() => 0.5 - Math.random());
     setSchemes(shuffled.slice(0, 3));
@@ -267,34 +267,34 @@ useEffect(() => {
 
             {/* Schemes — Only 3 Fixed Cards */}
             <div className="card tall">
-        {schemes[0] ? (
-          <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
-            📜 {schemes[0].name.length > 75 ? schemes[0].name.slice(0, 75) + "..." : schemes[0].name}
-          </a>
-        ) : (
-          <p>Loading Scheme 1...</p>
-        )}
-      </div>
+              {schemes[0] ? (
+                <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
+                  📜 {schemes[0].name.length > 75 ? schemes[0].name.slice(0, 75) + "..." : schemes[0].name}
+                </a>
+              ) : (
+                <p>Loading Scheme 1...</p>
+              )}
+            </div>
 
-      <div className="card tall">
-        {schemes[1] ? (
-          <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
-            📜 {schemes[1].name.length > 75 ? schemes[1].name.slice(0, 75) + "..." : schemes[1].name}
-          </a>
-        ) : (
-          <p>Loading Scheme 2...</p>
-        )}
-      </div>
+            <div className="card tall">
+              {schemes[1] ? (
+                <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
+                  📜 {schemes[1].name.length > 75 ? schemes[1].name.slice(0, 75) + "..." : schemes[1].name}
+                </a>
+              ) : (
+                <p>Loading Scheme 2...</p>
+              )}
+            </div>
 
-      <div className="card tall">
-        {schemes[2] ? (
-          <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
-            📜 {schemes[2].name.length > 75 ? schemes[2].name.slice(0, 75) + "..." : schemes[2].name}
-          </a>
-        ) : (
-          <p>Loading Scheme 3...</p>
-        )}
-      </div>
+            <div className="card tall">
+              {schemes[2] ? (
+                <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
+                  📜 {schemes[2].name.length > 75 ? schemes[2].name.slice(0, 75) + "..." : schemes[2].name}
+                </a>
+              ) : (
+                <p>Loading Scheme 3...</p>
+              )}
+            </div>
           </div>
 
 

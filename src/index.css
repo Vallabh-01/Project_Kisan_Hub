@@ -1,0 +1,48 @@
+/* General hover animation for all sidebar icons */
+.gov-icons a,
+.Mandi-icons a,
+.profile-icons a,
+.weather-icons a {
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.gov-icons a:hover,
+.Mandi-icons a:hover,
+.profile-icons a:hover,
+.weather-icons a:hover {
+    transform: scale(1.2);
+    /* Zoom effect */
+    color: #C4CE5F;
+    /* Highlight color */
+}
+
+/* Tooltip / label reveal on hover */
+.gov-icons a::after,
+.Mandi-icons a::after,
+.profile-icons a::after,
+.weather-icons a::after {
+    content: attr(data-label);
+    /* Use this attr to show text */
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #f0f7f4;
+    color: #2e4e46;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.gov-icons a:hover::after,
+.Mandi-icons a:hover::after,
+.profile-icons a:hover::after,
+.weather-icons a:hover::after {
+    opacity: 1;
+}

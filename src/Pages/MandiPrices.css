@@ -54,7 +54,7 @@
 
 .content-area {
   flex-grow: 1;
-  background: white;
+  background: #DCE1E9;
   border-radius: 20px;
   margin: 20px;
   padding: 20px;
@@ -67,11 +67,13 @@
 }
 
 .search-input {
-  padding: 10px;
+  padding: 10px 20px 10px 10px;
   width: 240px;
   border-radius: 15px;
+  font-weight: 520;
+  font-size: 15px;
   border: none;
-  background: #e2e2e2;
+  background: #F0F7F4;
   font-family: inherit;
 }
 
@@ -80,7 +82,7 @@
 }
 
 .price-table {
-  background-color: #d1d1d1;
+  background-color: #F0F7F4;
   border-radius: 20px;
   padding: 20px;
   display: flex;
@@ -100,13 +102,14 @@
 .table-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 510;
   padding: 4px 0;
   align-items: center;
 }
 
 .crop-name {
-  font-weight: 500;
+  font-weight: 520;
 }
 
 .green {
@@ -144,7 +147,7 @@
 
 .trend-card {
   flex: 2;
-  background-color: #d1d1d1;
+  background-color: #F0F7F4;
   border-radius: 20px;
   padding: 20px;
   font-size: 16px;
@@ -155,31 +158,18 @@
   overflow: hidden;
 }
 
-.tips-card {
-  flex: 1;
-  background-color: #d1d1d1;
-  border-radius: 20px;
-  padding: 20px;
-  font-size: 16px;
-  height: 170px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
 .tips-card p {
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: bolder;;
   color: #2e4e46;
 }
 
 .tips-card {
   flex: 1;
   height: 100px;
-  background-color: #d1d1d1;
+  background-color: #F0F7F4;
   border-radius: 20px;
   padding: 20px;
-  font-size: 16px;
   max-width: 320px;
   margin-top: 40px;
 }
