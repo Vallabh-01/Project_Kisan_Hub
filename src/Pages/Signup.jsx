@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Signup.css";
 import logo from "../assets/Hd Logo normal.png";
 import bgImage from "../assets/floral.jpg";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "../firebase/firebase";
@@ -13,9 +14,8 @@ const Signup = () => {
     lastName: "",
     phone: "",
     password: "",
-    confirmPassword: "",
   });
-
+  const navigate = useNavigate(); // initialize navigation
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -27,11 +27,6 @@ const Signup = () => {
     e.preventDefault();
     setError("");
     setMessage("");
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
 
     const fakeEmail = `${formData.phone}@kisanhub.com`;
 
@@ -53,13 +48,9 @@ const Signup = () => {
       });
 
       setMessage("✅ Account created successfully!");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-      });
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1600); // Delay for 1s to show success message (optional)
     } catch (err) {
       setError(err.message);
     }

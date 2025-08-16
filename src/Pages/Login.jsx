@@ -30,7 +30,11 @@ const Login = () => {
       setMessage("✅ Login successful!");
       setTimeout(() => navigate("/dashboard"), 2000); // redirect to homepage or dashboard
     } catch (err) {
-      setError(err.message);
+      if (err.code === "auth/network-request-failed") {
+        setError("⚠️ Network error. Please check your internet connection.");
+      } else {
+        setError(err.message);
+      }
     }
   };
 

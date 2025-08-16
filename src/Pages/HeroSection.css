@@ -53,6 +53,8 @@
     border-radius: 20px;
     font-family: "Comic Neue", cursive;
     font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
     cursor: pointer;
     margin: 15px auto 0 auto;
     display: block;
