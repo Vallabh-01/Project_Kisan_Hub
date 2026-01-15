@@ -16,7 +16,7 @@
   max-height: 230px;
   height: 100%;
   max-width: 480px;
-  width: 100%;
+  width: 90%;
 }
 
 .hero-content h1{
@@ -24,7 +24,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 800;
   color: #D7BC5A;
   margin-top: 10px
