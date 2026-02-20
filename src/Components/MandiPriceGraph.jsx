@@ -8,70 +8,45 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import mandiData from "../Data/maharashtra-mandi-full.json";
 
-const MandiPriceGraph = ({ district }) => {
+const MandiPriceGraph = ({ records }) => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    const entries = mandiData.filter(
-      (item) => item.District?.toLowerCase() === district.toLowerCase()
-    );
-
-    if (!entries || entries.length === 0) {
+    if (!records || records.length === 0) {
       setChartData([]);
       return;
     }
 
-    const first = entries[0];
+    const formatted = records.map(item => ({
+      date: item.arrival_date,
+      price: parseFloat(item.modal_price)
+    }))
+    .filter(d => !isNaN(d.price));
 
-    if (!first || !first.Prices) {
-      setChartData([]);
-      return;
-    }
+    setChartData(formatted);
 
-    const prices = Object.entries(first.Prices)
-      .map(([date, price]) => ({
-        date,
-        price: parseFloat(price),
-      }))
-      .filter((d) => !isNaN(d.price));
+  }, [records]);
 
-    setChartData(prices);
-  }, [district]);
-
-  // Dynamic Y-axis padding
   const priceValues = chartData.map((d) => d.price);
   const min = Math.min(...priceValues);
   const max = Math.max(...priceValues);
   const padding = 5;
 
   return (
-    <div className="card large" style={{ padding: "1rem", boxSizing: "border-box" }}>
+    <div className="card large" style={{ padding: "1rem" }}>
       {chartData.length > 0 ? (
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
-            <YAxis
-              domain={[
-                min - padding < 0 ? 0 : min - padding,
-                max + padding,
-              ]}
-            />
+            <YAxis domain={[min - padding, max + padding]} />
             <Tooltip />
-            <Line
-              type="monotone"
-              dataKey="price"
-              stroke="#3A635B"
-              strokeWidth={2}
-              dot={{ r: 3 }}
-              activeDot={{ r: 5 }}
-            />
+            <Line type="monotone" dataKey="price" stroke="#3A635B" />
           </LineChart>
         </ResponsiveContainer>
       ) : (
-        <p style={{ padding: "1rem" }}>No data available for this selection.</p>
+        <p>No data available for selected combination.</p>
       )}
     </div>
   );

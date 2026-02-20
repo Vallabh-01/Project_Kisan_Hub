@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
@@ -8,19 +9,82 @@ import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
-  const [selectedDistrict, setSelectedDistrict] = useState("Beed");
+  const [selectedDistrict, setSelectedDistrict] = useState("Pune");
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [mandiData, setMandiData] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [schemes, setSchemes] = useState([]);
+  const [selectedCommodity, setSelectedCommodity] = useState("");
+  const [commodities, setCommodities] = useState([]);
+  const [allRecords, setAllRecords] = useState([]);
+  const [markets, setMarkets] = useState([]);
+  const [selectedMarket, setSelectedMarket] = useState("");
 
   const handleSelectDistrict = (district) => {
     setSelectedDistrict(district);
     setShowLocationModal(false);
   };
+
+  useEffect(() => {
+    if (!selectedMarket) return;
+
+    const marketRecords = allRecords.filter(
+      r =>
+        r.district === selectedDistrict &&
+        r.market === selectedMarket
+    );
+
+    const uniqueCommodities = [
+      ...new Set(marketRecords.map(r => r.commodity))
+    ];
+
+    setCommodities(uniqueCommodities);
+    setSelectedCommodity(uniqueCommodities[0] || "");
+
+  }, [selectedMarket, selectedDistrict, allRecords]);
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/mandi");
+        const data = await res.json();
+
+        const records = data.records || [];
+
+        setAllRecords(records);
+
+        const uniqueDistricts = [
+          ...new Set(records.map(r => r.district))
+        ];
+
+        setDistricts(uniqueDistricts);
+        setSelectedDistrict(uniqueDistricts[0] || "");
+
+      } catch (err) {
+        console.error("Error fetching mandi data:", err);
+      }
+    };
+
+    fetchAllData();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedDistrict) return;
+
+    const districtRecords = allRecords.filter(
+      r => r.district === selectedDistrict
+    );
+
+    const uniqueMarkets = [
+      ...new Set(districtRecords.map(r => r.market))
+    ];
+
+    setMarkets(uniqueMarkets);
+    setSelectedMarket(uniqueMarkets[0] || "");
+
+  }, [selectedDistrict, allRecords]);
 
   useEffect(() => {
     const fetchQuote = async () => {
@@ -41,15 +105,6 @@ const Dashboard = () => {
     fetchQuote();
   }, []);
 
-  useEffect(() => {
-    fetch("/src/Data/maharashtra-mandi-full.json")
-      .then(res => res.json())
-      .then(data => {
-        const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
-        setDistricts(uniqueDistricts);
-      })
-      .catch(err => console.error("Failed to load districts:", err));
-  }, []);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -90,17 +145,6 @@ const Dashboard = () => {
     fetchWeather();
   }, [selectedDistrict]);
 
-  useEffect(() => {
-    fetch("/src/Data/maharashtra-mandi-full.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const filtered = data.filter(
-          (entry) => entry.District.toLowerCase() === selectedDistrict.toLowerCase()
-        );
-        setMandiData(filtered.slice(0, 2));
-      })
-      .catch((err) => console.error("Mandi fetch error:", err));
-  }, [selectedDistrict]);
 
   useEffect(() => {
     const fetchAlerts = async () => {
@@ -145,6 +189,13 @@ const Dashboard = () => {
     setSchemes(shuffled.slice(0, 3));
   }, []);
 
+  const filteredData = allRecords.filter(
+    r =>
+      r.district === selectedDistrict &&
+      r.market === selectedMarket &&
+      r.commodity === selectedCommodity
+  );
+
   return (
     <div className="dashboard-container">
       <aside className="sidebar-dashboard">
@@ -169,137 +220,165 @@ const Dashboard = () => {
         </div>
       </aside>
 
-      <main className="dashboard-content">
-        <div className="top-bar">
-          <div className="location-display">
-            <DistrictSelect
-              districts={districts}
-              selectedDistrict={selectedDistrict}
-              onChange={e => setSelectedDistrict(e.target.value)}
-            />
+      <div className="top-bar">
+        <div className="location-display">
+
+          {/* District Dropdown */}
+          <DistrictSelect
+            districts={districts}
+            selectedDistrict={selectedDistrict}
+            onChange={e => setSelectedDistrict(e.target.value)}
+          />
+          {/*market dropdown*/}
+          <select
+            value={selectedMarket}
+            onChange={(e) => setSelectedMarket(e.target.value)}
+            style={{ marginLeft: "10px" }}
+          >
+            {markets.map((market, index) => (
+              <option key={index} value={market}>
+                {market}
+              </option>
+            ))}
+          </select>
+          {/* Commodity Dropdown */}
+          <select
+            value={selectedCommodity}
+            onChange={(e) => setSelectedCommodity(e.target.value)}
+            style={{ marginLeft: "10px" }}
+          >
+            {commodities.map((com, index) => (
+              <option key={index} value={com}>
+                {com}
+              </option>
+            ))}
+          </select>
+
+        </div>
+      </div>
+      {showLocationModal && (
+        <div className="location-modal">
+          <h3>Select District</h3>
+          <div className="district-list">
+            {districts.map((district) => (
+              <button
+                key={district}
+                onClick={() => handleSelectDistrict(district)}
+                className={district === selectedDistrict ? "active" : ""}
+              >
+                {district}
+              </button>
+            ))}
           </div>
         </div>
+      )}
 
-        {showLocationModal && (
-          <div className="location-modal">
-            <h3>Select District</h3>
-            <div className="district-list">
-              {districts.map((district) => (
-                <button
-                  key={district}
-                  onClick={() => handleSelectDistrict(district)}
-                  className={district === selectedDistrict ? "active" : ""}
-                >
-                  {district}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="main-body">
-          <div className="dashboard-grid">
-            <div className="top-row">
-              <div className="card small temp-card">
-                {weather ? (
-                  <div className="temp-content">
-                    <div className="temp-row">
-                      <img
-                        className="weather-icon"
-                        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
-                        alt={weather.weather[0].main}
-                      />
-                      <h2 className="temp-value">{Math.round(weather.main.temp)}°C</h2>
-                    </div>
-                  </div>
-                ) : <p>Loading...</p>}
-              </div>
-
-              <div className="card small mandi-prices-card">
-                <div className="mandi-row">
-                  {mandiData.length > 0 ? mandiData.map((item, index) => (
-                    <div key={index} className="mandi-block">
-                      <div className="commodity">{item.Commodity} ({item.Variety})</div>
-                      <div className="price">₹{item.Prices["Jul 16"]}</div>
-                      <div className="market">{item["Mandi Name"]}</div>
-                    </div>
-                  )) : <p>Loading...</p>}
-                </div>
-              </div>
-            </div>
-
-            <MandiPriceGraph district={selectedDistrict} />
-
-            <div className="forecast-row">
-              {forecast.map((item, idx) => (
-                <div key={idx} className="card small forecast-card">
-                  <div className="forecast-compact">
-                    <span>{new Date(item.dt_txt).toLocaleDateString("en-IN", { weekday: "short" })}</span>
+      <div className="main-body">
+        <div className="dashboard-grid">
+          <div className="top-row">
+            <div className="card small temp-card">
+              {weather ? (
+                <div className="temp-content">
+                  <div className="temp-row">
                     <img
                       className="weather-icon"
-                      src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-                      alt={item.weather[0].main}
+                      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+                      alt={weather.weather[0].main}
                     />
-                    <span>{Math.round(item.main.temp)}°C</span>
-                    <span>{item.weather[0].main}</span>
+                    <h2 className="temp-value">{Math.round(weather.main.temp)}°C</h2>
                   </div>
                 </div>
-              ))}
+              ) : <p>Loading...</p>}
+            </div>
+
+            <div className="card small mandi-prices-card">
+              <div className="mandi-row">
+                {filteredData.length > 0 ? (
+                  filteredData.slice(0, 2).map((item, index) => (
+                    <div key={index} className="mandi-block">
+                      <div className="commodity">{item.commodity}</div>
+                      <div className="price">₹{item.modal_price}</div>
+                      <div className="market">{item.market}</div>
+                    </div>
+                  ))
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="right-sidebar">
-            <div className="card tall">
-              {alerts.length === 0 ? (
-                <p>No critical alerts found for Maharashtra at the moment.</p>
-              ) : (
-                <ul style={{ paddingLeft: "1rem", fontSize: "0.9rem", color: "#333" }}>
-                  {alerts.map((alert, idx) => (
-                    <li key={idx}>
-                      <a href={alert.link} target="_blank" rel="noopener noreferrer">
-                        {alert.title.length > 75 ? alert.title.slice(0, 75) + "..." : alert.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+          <MandiPriceGraph records={filteredData} />
 
-            {/* Schemes — Only 3 Fixed Cards */}
-            <div className="card tall">
-              {schemes[0] ? (
-                <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
-                  📜 {schemes[0].name.length > 75 ? schemes[0].name.slice(0, 75) + "..." : schemes[0].name}
-                </a>
-              ) : (
-                <p>Loading Scheme 1...</p>
-              )}
-            </div>
-
-            <div className="card tall">
-              {schemes[1] ? (
-                <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
-                  📜 {schemes[1].name.length > 75 ? schemes[1].name.slice(0, 75) + "..." : schemes[1].name}
-                </a>
-              ) : (
-                <p>Loading Scheme 2...</p>
-              )}
-            </div>
-
-            <div className="card tall">
-              {schemes[2] ? (
-                <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
-                  📜 {schemes[2].name.length > 75 ? schemes[2].name.slice(0, 75) + "..." : schemes[2].name}
-                </a>
-              ) : (
-                <p>Loading Scheme 3...</p>
-              )}
-            </div>
+          <div className="forecast-row">
+            {forecast.map((item, idx) => (
+              <div key={idx} className="card small forecast-card">
+                <div className="forecast-compact">
+                  <span>{new Date(item.dt_txt).toLocaleDateString("en-IN", { weekday: "short" })}</span>
+                  <img
+                    className="weather-icon"
+                    src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                    alt={item.weather[0].main}
+                  />
+                  <span>{Math.round(item.main.temp)}°C</span>
+                  <span>{item.weather[0].main}</span>
+                </div>
+              </div>
+            ))}
           </div>
-
-
         </div>
-      </main>
+
+        <div className="right-sidebar">
+          <div className="card tall">
+            {alerts.length === 0 ? (
+              <p>No critical alerts found for Maharashtra at the moment.</p>
+            ) : (
+              <ul style={{ paddingLeft: "1rem", fontSize: "0.9rem", color: "#333" }}>
+                {alerts.map((alert, idx) => (
+                  <li key={idx}>
+                    <a href={alert.link} target="_blank" rel="noopener noreferrer">
+                      {alert.title.length > 75 ? alert.title.slice(0, 75) + "..." : alert.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* Schemes — Only 3 Fixed Cards */}
+          <div className="card tall">
+            {schemes[0] ? (
+              <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
+                📜 {schemes[0].name.length > 75 ? schemes[0].name.slice(0, 75) + "..." : schemes[0].name}
+              </a>
+            ) : (
+              <p>Loading Scheme 1...</p>
+            )}
+          </div>
+
+          <div className="card tall">
+            {schemes[1] ? (
+              <a href={schemes[1].link} target="_blank" rel="noopener noreferrer">
+                📜 {schemes[1].name.length > 75 ? schemes[1].name.slice(0, 75) + "..." : schemes[1].name}
+              </a>
+            ) : (
+              <p>Loading Scheme 2...</p>
+            )}
+          </div>
+
+          <div className="card tall">
+            {schemes[2] ? (
+              <a href={schemes[2].link} target="_blank" rel="noopener noreferrer">
+                📜 {schemes[2].name.length > 75 ? schemes[2].name.slice(0, 75) + "..." : schemes[2].name}
+              </a>
+            ) : (
+              <p>Loading Scheme 3...</p>
+            )}
+          </div>
+        </div>
+
+
+      </div>
     </div>
   );
 };
