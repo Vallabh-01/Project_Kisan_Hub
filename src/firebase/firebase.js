@@ -2,23 +2,22 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage"; // ✅ Add this
+import { getStorage } from "firebase/storage";
 
-// Your Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyDnto0q-h6XawVj9IKYsKQUtIkmFlbGW2g",
-  authDomain: "digital-kisan-hub.firebaseapp.com",
-  projectId: "digital-kisan-hub",
-  storageBucket: "digital-kisan-hub.appspot.com", // ✅ corrected bucket
-  messagingSenderId: "855622178100",
-  appId: "1:855622178100:web:4ac7add2c3af61dd6b4161",
-  measurementId: "G-RTSBM0W5D4",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// ✅ Export the services
+// Export services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app); // ✅ This fixes your error
+export const storage = getStorage(app);
