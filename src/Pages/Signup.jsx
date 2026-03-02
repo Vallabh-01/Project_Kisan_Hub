@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import logo from "../assets/Hd Logo normal.png";
+import logo from "../assets/logo_only.png";
 import bgImage from "../assets/floral.jpg";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";

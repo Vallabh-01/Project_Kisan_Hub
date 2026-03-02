@@ -1,6 +1,6 @@
 // MandiPrices.jsx
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './MandiPrices.css';
 import {
     FaTachometerAlt,
@@ -20,6 +20,8 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import DistrictSelect from "../Components/DistrictSelect";
+import { useLocationContext } from "../context/LocationContext";   // ✅ ADD THIS
+
 
 ChartJS.register(
     LineElement,
@@ -45,11 +47,7 @@ const MandiPrices = () => {
         return tips[key] || "Follow best practices to increase yield.";
     };
     const [districts, setDistricts] = useState([]);
-    const location = useLocation();
-    const navigate = useNavigate();
-    const queryParams = new URLSearchParams(location.search);
-    const selectedDistrict = queryParams.get("district") || "Beed";
-
+    const { district, setDistrict } = useLocationContext();
     useEffect(() => {
         fetch("/src/Data/maharashtra-mandi-full.json")
             .then((res) => res.json())
@@ -58,28 +56,23 @@ const MandiPrices = () => {
                 setDistricts(uniqueDistricts);
 
                 const filtered = data.filter(
-                    (entry) => entry.District.toLowerCase() === selectedDistrict.toLowerCase()
+                    (entry) => entry.District.toLowerCase() === district.toLowerCase()
                 );
                 setMandiData(filtered.slice(0, 6));
             })
             .catch((err) => console.error("Error loading mandi data:", err));
-    }, [selectedDistrict]);
-
-    const handleDistrictChange = (e) => {
-        const district = e.target.value;
-        navigate(`/MandiPrices?district=${district}`);
-    };
+    }, [district]);
 
     return (
         <div className="mandi-container">
             <aside className="Mandi-sidebar">
                 <div className="Mandi-logo">
-                    <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
+                    <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="Mandi-icons">
                     <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
                     <Link to="/weather" data-label="Weather"><FaCloudSun /></Link>
-                    <Link to={`/MandiPrices?district=${selectedDistrict}`}> <FaStore className="active" data-label="Mandi Prices" /></Link>
+                    <Link to="/MandiPrices"> <FaStore className="active" data-label="Mandi Prices" /></Link>
                     <Link to="/GovSchemes" data-label="Schemes"><FaLandmark /></Link>
                     <Link to="/userprofile" data-label="Profile"><FaCog /></Link>
                 </nav>
@@ -89,13 +82,13 @@ const MandiPrices = () => {
                 <header className="search-section">
                     <DistrictSelect
                         districts={districts}
-                        selectedDistrict={selectedDistrict}
-                        onChange={handleDistrictChange}
+                        selectedDistrict={district}
+                        onChange={(e) => setDistrict(e.target.value)}
                     />
                 </header>
 
                 <section className="price-table-section">
-                    <h2>Today's Prices for {selectedDistrict}</h2>
+                    <h2>Today's Prices for {district}</h2>
                     <div className="price-table">
                         <div className="table-header">
                             <span>Crop</span>

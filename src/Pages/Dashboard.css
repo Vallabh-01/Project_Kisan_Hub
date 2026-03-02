@@ -232,8 +232,14 @@ body {
 }
 
 .weather-icon {
-  width: 180px;
-  height: 180px;
+  width: 80px;
+  height: 80px;
+}
+
+.weather-icon-main {
+  width: 80px;
+  height: 80px;
+  margin-right: 40px;
 }
 
 .temp-value {
@@ -277,7 +283,6 @@ body {
   width: 38px;
   height: 38px;
 }
-
 
 .mandi-prices-card {
   padding: 15px;

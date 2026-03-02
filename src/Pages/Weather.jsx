@@ -11,12 +11,24 @@ import {
   FaLandmark,
   FaCog,
 } from "react-icons/fa";
+import clearDay from "../assets/weather-icons/clear-day.png";
+import clearNight from "../assets/weather-icons/clear-night.png";
+import clouds from "../assets/weather-icons/clouds.png";
+import cloudyNight from "../assets/weather-icons/cloudy-night.png";
+import rain from "../assets/weather-icons/rain.png";
+import rainingNight from "../assets/weather-icons/raining-night.png";
+import stormDay from "../assets/weather-icons/storm-day.png";
+import stormNight from "../assets/weather-icons/storm-night.png";
+import snow from "../assets/weather-icons/snow.png";
+import snowNight from "../assets/weather-icons/snow-night.png";
+import mist from "../assets/weather-icons/mist.png";
+import haze from "../assets/weather-icons/haze.png";
+import smoke from "../assets/weather-icons/smoke.png";
 import DistrictSelect from "../Components/DistrictSelect";
-
+import { useLocationContext } from "../context/LocationContext";
 
 const Weather = () => {
   const navigate = useNavigate();
-  const [selectedDistrict, setSelectedDistrict] = useState("Beed");
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
@@ -25,25 +37,24 @@ const Weather = () => {
   const [sunMoonData, setSunMoonData] = useState(null);
   const [historicalWeather, setHistoricalWeather] = useState([]);
   const [districts, setDistricts] = useState([]);
-
+  const { district, setDistrict } = useLocationContext();
   const handleChangeLocation = () => setShowLocationModal(!showLocationModal);
 
   const handleSelectDistrict = (district) => {
-    setSelectedDistrict(district);
+    setDistrict(district);
     setShowLocationModal(false);
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchInput.trim()) {
-      setSelectedDistrict(searchInput.trim());
+      setDistrict(searchInput.trim());
       setSearchInput("");
     }
   };
 
   const handleDistrictChange = (e) => {
-    const district = e.target.value;
-    setSelectedDistrict(district);
+    setDistrict(e.target.value);
   };
 
   useEffect(() => {
@@ -61,7 +72,7 @@ const Weather = () => {
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
         );
         const data = await res.json();
         if (res.ok) {
@@ -80,7 +91,7 @@ const Weather = () => {
         }
 
         const forecastRes = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
         );
         const forecastData = await forecastRes.json();
 
@@ -123,7 +134,7 @@ const Weather = () => {
     };
 
     fetchWeather();
-  }, [selectedDistrict]);
+  }, [district]);
 
   // Fetch weather alerts
   useEffect(() => {
@@ -150,11 +161,48 @@ const Weather = () => {
     fetchWeatherAlerts();
   }, []);
 
+  const getWeatherIcon = (iconCode, main) => {
+    if (!iconCode || !main) return clearDay;
+
+    const isNight = iconCode.includes("n");
+    const condition = main.toLowerCase();
+
+    switch (condition) {
+      case "clear":
+        return isNight ? clearNight : clearDay;
+
+      case "clouds":
+        return isNight ? cloudyNight : clouds;
+
+      case "rain":
+      case "drizzle":
+        return isNight ? rainingNight : rain;
+
+      case "thunderstorm":
+        return isNight ? stormNight : stormDay;
+
+      case "snow":
+        return isNight ? snowNight : snow;
+
+      case "mist":
+        return mist;
+
+      case "haze":
+        return haze;
+
+      case "smoke":
+        return smoke;
+
+      default:
+        return isNight ? clearNight : clearDay;
+    }
+  };
+
   return (
     <div className="weather-container">
       <aside className="weather-sidebar">
         <div className="weather-logo">
-          <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
+          <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
         </div>
         <nav className="weather-icons">
           <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
@@ -170,7 +218,7 @@ const Weather = () => {
         <header className="search-section">
           <DistrictSelect
             districts={districts}
-            selectedDistrict={selectedDistrict}
+            selectedDistrict={district}
             onChange={handleDistrictChange}
           />
         </header>
@@ -179,13 +227,13 @@ const Weather = () => {
           <div className="location-modal">
             <h3>Select District</h3>
             <div className="district-list">
-              {districts.map((district) => (
+              {districts.map((d) => (
                 <button
-                  key={district}
-                  onClick={() => handleSelectDistrict(district)}
-                  className={district === selectedDistrict ? "active" : ""}
+                  key={d}
+                  onClick={() => handleSelectDistrict(d)}
+                  className={d === district ? "active" : ""}
                 >
-                  {district}
+                  {d}
                 </button>
               ))}
             </div>
@@ -196,11 +244,16 @@ const Weather = () => {
           <div className="weather-card small-card">
             {weather ? (
               <div className="current-weather">
-                <img
-                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                  alt={weather.weather[0].main}
-                  style={{ width: '100px', height: '100px' }}
-                />
+                <div className="weather-icon-wrapper">
+                  <img
+                    src={getWeatherIcon(
+                      weather?.weather?.[0]?.icon,
+                      weather?.weather[0]?.main
+                    )}
+                    alt={weather?.weather[0]?.main}
+                    className="custom-weather-icon"
+                  />
+                </div>
                 <div className="weather-details">
                   <h2>{Math.round(weather.main.temp)}°C</h2>
                   <p>{weather.weather[0].description}</p>
@@ -225,9 +278,12 @@ const Weather = () => {
                     })}
                   </div>
                   <img
-                    src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
-                    alt={item.weather[0].main}
-                    style={{ width: '30px', height: '30px' }}
+                    src={getWeatherIcon(
+                      item?.weather?.[0]?.icon,
+                      item?.weather?.[0]?.main
+                    )}
+                    alt={item?.weather?.[0]?.main}
+                    className="forecast-icon"
                   />
                   <div className="forecast-temp">
                     {Math.round(item.main.temp)}°C
@@ -241,11 +297,15 @@ const Weather = () => {
         </div>
 
         <div className="weather-alert">
-          <h3>🚨 Weather Alert</h3>
+          <h3>🚨 Weather Alerts & Updates</h3>
           {weatherAlerts.length > 0 ? (
             <div className="single-alert">
-              <a href={weatherAlerts[0].link} target="_blank" rel="noopener noreferrer">
-                {weatherAlerts[0].title.length > 120 ? weatherAlerts[0].title.slice(0, 120) + "..." : weatherAlerts[0].title}
+              <a
+                href={weatherAlerts[0].link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {weatherAlerts[0].title}
               </a>
             </div>
           ) : (
@@ -274,7 +334,11 @@ const Weather = () => {
               {weather ? (
                 <div>
                   <p>🌡️ Night Temp: {Math.round(weather.main.temp_min)}°C</p>
-                  <p>👁️ Visibility: {weather.visibility / 1000} km</p>
+                  <p>
+                    👁️ Visibility: {weather.visibility === 10000
+                      ? "Clear (10+ km)"
+                      : `${(weather.visibility / 1000).toFixed(1)} km`}
+                  </p>
                 </div>
               ) : (
                 <p>Loading moon data...</p>

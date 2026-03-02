@@ -4,28 +4,31 @@ import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
 import DistrictSelect from "../Components/DistrictSelect";
 import schemesData from '../Data/gov-schemes.json';
+import getWeatherIcon from "../utils/getWeatherIcon";
 import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-icons/fa";
+import { useLocationContext } from "../context/LocationContext";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
-  const [selectedDistrict, setSelectedDistrict] = useState("Beed");
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const { district, setDistrict } = useLocationContext();
   const [mandiData, setMandiData] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [schemes, setSchemes] = useState([]);
+  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
 
-  const handleSelectDistrict = (district) => {
-    setSelectedDistrict(district);
-    setShowLocationModal(false);
-  };
+  const handleSelectDistrict = (value) => {
+  setDistrict(value);   // ✅ use context setter
+  setShowLocationModal(false);
+};
 
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        const res = await fetch("https://zenquotes.io/api/today");
+        const res = await fetch("/api/quotes/today");
         const data = await res.json();
         if (data && data[0]?.q) {
           setQuote(`${data[0].q} — ${data[0].a}`);
@@ -55,13 +58,13 @@ const Dashboard = () => {
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
         );
         const data = await res.json();
         if (res.ok) setWeather(data);
 
         const forecastRes = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${selectedDistrict}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
         );
         const forecastData = await forecastRes.json();
 
@@ -88,46 +91,32 @@ const Dashboard = () => {
     };
 
     fetchWeather();
-  }, [selectedDistrict]);
+}, [district]);
 
   useEffect(() => {
     fetch("/src/Data/maharashtra-mandi-full.json")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(
-          (entry) => entry.District.toLowerCase() === selectedDistrict.toLowerCase()
+          (entry) => entry.District.toLowerCase() === district.toLowerCase()
         );
         setMandiData(filtered.slice(0, 2));
       })
       .catch((err) => console.error("Mandi fetch error:", err));
-  }, [selectedDistrict]);
+ }, [district]);
+
+  // console.log("API KEY:", import.meta.env.VITE_NEWS_API_KEY);
 
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const response = await fetch(
-          `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWS_API_KEY}&q=alert%20OR%20emergency%20OR%20warning%20OR%20disaster&country=in&language=en`
-        );
+        const response = await fetch("http://localhost:5000/api/agri-news");
         const data = await response.json();
         console.log("Alert Data:", data);
 
-        if (data?.results?.length > 0) {
-          const filtered = data.results.filter(item => {
-            const content = `${item.title} ${item.description}`.toLowerCase();
-            return (
-              content.includes("maharashtra") &&
-              (content.includes("alert") ||
-                content.includes("emergency") ||
-                content.includes("warning") ||
-                content.includes("disaster"))
-            );
-          });
-          console.log("Filtered Alerts:", filtered);
-
-          console.log("All Alerts Returned:", data.results);
-          setAlerts(filtered.slice(0, 5));
+        if (data.status === "success" && data.results?.length > 0) {
+          setAlerts(data.results.slice(0, 5));
         } else {
-          console.log("No alert results found");
           setAlerts([]);
         }
       } catch (err) {
@@ -140,6 +129,18 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    if (alerts.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentNewsIndex(prevIndex =>
+        prevIndex === alerts.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // change every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [alerts]);
+
+  useEffect(() => {
     const allSchemes = schemesData.government_schemes.flatMap(item => item.schemes);
     const shuffled = allSchemes.sort(() => 0.5 - Math.random());
     setSchemes(shuffled.slice(0, 3));
@@ -150,7 +151,7 @@ const Dashboard = () => {
       <aside className="sidebar-dashboard">
         <div className="logo">
           <img
-            src="src/assets/Hd Logo normal.png"
+            src="src/assets/logo_only.png"
             alt="Smart Kisan Logo"
             className="logo-img"
           />
@@ -173,10 +174,10 @@ const Dashboard = () => {
         <div className="top-bar">
           <div className="location-display">
             <DistrictSelect
-              districts={districts}
-              selectedDistrict={selectedDistrict}
-              onChange={e => setSelectedDistrict(e.target.value)}
-            />
+  districts={districts}
+  selectedDistrict={district}
+  onChange={e => setDistrict(e.target.value)}
+/>
           </div>
         </div>
 
@@ -184,12 +185,13 @@ const Dashboard = () => {
           <div className="location-modal">
             <h3>Select District</h3>
             <div className="district-list">
-              {districts.map((district) => (
+              {districts.map((item) => (
                 <button
                   key={district}
                   onClick={() => handleSelectDistrict(district)}
-                  className={district === selectedDistrict ? "active" : ""}
+                  className={district === district ? "active" : ""}                 
                 >
+                  {item}
                   {district}
                 </button>
               ))}
@@ -205,8 +207,11 @@ const Dashboard = () => {
                   <div className="temp-content">
                     <div className="temp-row">
                       <img
-                        className="weather-icon"
-                        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+                        className="weather-icon-main"
+                        src={getWeatherIcon(
+                          weather.weather[0].main,
+                          weather.weather[0].icon
+                        )}
                         alt={weather.weather[0].main}
                       />
                       <h2 className="temp-value">{Math.round(weather.main.temp)}°C</h2>
@@ -228,7 +233,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <MandiPriceGraph district={selectedDistrict} />
+            <MandiPriceGraph district={district} />
 
             <div className="forecast-row">
               {forecast.map((item, idx) => (
@@ -237,7 +242,10 @@ const Dashboard = () => {
                     <span>{new Date(item.dt_txt).toLocaleDateString("en-IN", { weekday: "short" })}</span>
                     <img
                       className="weather-icon"
-                      src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                      src={getWeatherIcon(
+                        item.weather[0].main,
+                        item.weather[0].icon
+                      )}
                       alt={item.weather[0].main}
                     />
                     <span>{Math.round(item.main.temp)}°C</span>
@@ -251,17 +259,25 @@ const Dashboard = () => {
           <div className="right-sidebar">
             <div className="card tall">
               {alerts.length === 0 ? (
-                <p>No critical alerts found for Maharashtra at the moment.</p>
+                <p>No agriculture updates available at the moment.</p>
               ) : (
-                <ul style={{ paddingLeft: "1rem", fontSize: "0.9rem", color: "#333" }}>
-                  {alerts.map((alert, idx) => (
-                    <li key={idx}>
-                      <a href={alert.link} target="_blank" rel="noopener noreferrer">
-                        {alert.title.length > 75 ? alert.title.slice(0, 75) + "..." : alert.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <div style={{ fontSize: "0.85rem", color: "#333" }}>
+                  <a
+                    href={alerts[currentNewsIndex].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none", color: "#2c3e50", fontWeight: "600" }}
+                  >
+                    {alerts[currentNewsIndex].title.length > 130
+                      ? alerts[currentNewsIndex].title.slice(0, 90) + "..."
+                      : alerts[currentNewsIndex].title}
+                  </a>
+
+                  <div style={{ marginTop: "8px", fontSize: "0.8rem", color: "#777" }}>
+                    {alerts[currentNewsIndex].source_name} •{" "}
+                    {new Date(alerts[currentNewsIndex].pubDate).toLocaleDateString()}
+                  </div>
+                </div>
               )}
             </div>
 

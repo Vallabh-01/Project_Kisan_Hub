@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import logo from "../assets/Hd Logo normal.png";
+import logo from "../assets/logo_only.png";
 import bgImage from "../assets/floral.jpg";
 import { auth } from "../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";

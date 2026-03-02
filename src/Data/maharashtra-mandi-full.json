@@ -1,7 +1,7 @@
 [
   {
-    "District": "Ahmednagar",
-    "Mandi Name": "Ahmednagar APMC",
+    "District": "Ahilyanagar",
+    "Mandi Name": "Ahilyanagar APMC",
     "Commodity": "Onion",
     "Variety": "Lal (Red)",
     "Prices": {
@@ -19,7 +19,7 @@
     "Price Difference (Jul 20 - Jul 16)": 15
   },
   {
-    "District": "Ahmednagar",
+    "District": "Ahilyanagar",
     "Mandi Name": "Rahuri APMC",
     "Commodity": "Soybean",
     "Variety": "Yellow",
@@ -38,7 +38,7 @@
     "Price Difference (Jul 20 - Jul 16)": 15
   },
   {
-    "District": "Ahmednagar",
+    "District": "Ahilyanagar",
     "Mandi Name": "Sangamner APMC",
     "Commodity": "Pomegranate",
     "Variety": "Bhagwa",
@@ -171,8 +171,8 @@
     "Price Difference (Jul 20 - Jul 16)": 15
   },
   {
-    "District": "Aurangabad",
-    "Mandi Name": "Aurangabad APMC",
+    "District": "Chhatrapati Sambhajinagar",
+    "Mandi Name": "Chhatrapati Sambhajinagar APMC",
     "Commodity": "Maize",
     "Variety": "Hybrid",
     "Prices": {
@@ -190,7 +190,7 @@
     "Price Difference (Jul 20 - Jul 16)": 15
   },
   {
-    "District": "Aurangabad",
+    "District": "Chhatrapati Sambhajinagar",
     "Mandi Name": "Sillod APMC",
     "Commodity": "Bajra (Pearl Millet)",
     "Variety": "Local",
@@ -209,7 +209,7 @@
     "Price Difference (Jul 20 - Jul 16)": -15
   },
   {
-    "District": "Aurangabad",
+    "District": "Chhatrapati Sambhajinagar",
     "Mandi Name": "Vaijapur APMC",
     "Commodity": "Sweet Corn",
     "Variety": "Golden Bantam",
@@ -912,8 +912,8 @@
     "Price Difference (Jul 20 - Jul 16)": 15
   },
   {
-    "District": "Osmanabad",
-    "Mandi Name": "Osmanabad APMC",
+    "District": "Dharashiv",
+    "Mandi Name": "Dharashiv APMC",
     "Commodity": "Jowar (Sorghum)",
     "Variety": "SH-5",
     "Prices": {
@@ -931,7 +931,7 @@
     "Price Difference (Jul 20 - Jul 16)": 15
   },
   {
-    "District": "Osmanabad",
+    "District": "Dharashiv",
     "Mandi Name": "Tuljapur APMC",
     "Commodity": "Tur (Arhar)",
     "Variety": "Red",

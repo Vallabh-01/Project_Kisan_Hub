@@ -30,32 +30,37 @@ const GovSchemes = () => {
         setSchemes(combined.slice(0, 6)); // show only first 6
     }, []);
 
-    useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                const response = await axios.get(
-                    `https://newsapi.org/v2/everything?q=agriculture+India+schemes&language=en&sortBy=publishedAt&pageSize=5&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`
-                );
-                const articles = response.data.articles.map(article => ({
-                    title: article.title,
-                    url: article.url,
-                    source: article.source.name,
-                }));
-                setLiveNews(articles);
-            } catch (err) {
-                console.error('Error fetching agri news:', err);
-            }
-        };
+  useEffect(() => {
+  const fetchNews = async () => {
+    try {
+      const response = await axios.get(
+  "http://localhost:5000/api/scheme-news"
+);
 
-        fetchNews();
-    }, []);
+if (response.data.status === "success") {
+  const articles = response.data.results.map(article => ({
+    title: article.title,
+    url: article.url,
+    source: article.source.name,
+    date: article.publishedAt,
+  }));
+
+  setLiveNews(articles.slice(0, 5));
+}
+    } catch (err) {
+      console.error("Error fetching scheme news:", err);
+    }
+  };
+
+  fetchNews();
+}, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentNewsIndex(prev =>
                 prev === liveNews.length - 1 ? 0 : prev + 1
             );
-        }, 4000); // 4 seconds
+        }, 6000); // 6 seconds
 
         return () => clearInterval(interval);
     }, [liveNews]);
@@ -65,7 +70,7 @@ const GovSchemes = () => {
             {/* Sidebar */}
             <aside className="gov-sidebar">
                 <div className="gov-logo">
-                    <img src="src/assets/Hd Logo normal.png" alt="Logo" className="logo-img" />
+                    <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="gov-icons">
                     <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
@@ -104,7 +109,7 @@ const GovSchemes = () => {
 
 
                 <section className="related-news-section">
-                    <h2>Related News</h2>
+                    <h2>Scheme & Policy Highlights</h2>
                     <div className="news-card">
                         {liveNews.length > 0 ? (
                             <a
@@ -118,7 +123,7 @@ const GovSchemes = () => {
                                 <small>({liveNews[currentNewsIndex]?.source})</small>
                             </a>
                         ) : (
-                            <p>Loading agri news...</p>
+                            <p>Loading News...</p>
                         )}
                     </div>
 
