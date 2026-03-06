@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 // src/Pages/Weather.jsx
 import React, { useState, useEffect } from "react";
+import logo from "../assets/logo_only.png";
 import "./Weather.css";
 import { Link, useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -197,7 +198,7 @@ const Weather = () => {
     <div className="weather-container">
       <aside className="weather-sidebar">
         <div className="weather-logo">
-          <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
+          <img src={logo} alt="Logo" className="logo-img" />
         </div>
         <nav className="weather-icons">
           <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>

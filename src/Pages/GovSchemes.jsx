@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import govSchemesData from '../Data/gov-schemes.json';
 import { Link } from 'react-router-dom';
 import './GovSchemes.css';
 import axios from 'axios';
@@ -10,6 +9,7 @@ import {
     FaLandmark,
     FaCog,
 } from "react-icons/fa";
+import logo from "../assets/logo_only.png";
 
 const GovSchemes = () => {
     const [schemes, setSchemes] = useState([]);
@@ -17,18 +17,32 @@ const GovSchemes = () => {
     const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
 
     useEffect(() => {
-        // Flatten both central and state schemes into one array with type info, then take first 6 for display
-        const combined = [];
-        govSchemesData.government_schemes.forEach(group => {
-            group.schemes.forEach(scheme => {
-                combined.push({
-                    ...scheme,
-                    type: group.scheme_type
+    const loadSchemes = async () => {
+        try {
+
+            const res = await fetch("/data/gov-schemes.json");
+            const data = await res.json();
+
+            const combined = [];
+
+            data.government_schemes.forEach(group => {
+                group.schemes.forEach(scheme => {
+                    combined.push({
+                        ...scheme,
+                        type: group.scheme_type
+                    });
                 });
             });
-        });
-        setSchemes(combined.slice(0, 6)); // show only first 6 schemes
-    }, []);
+
+            setSchemes(combined.slice(0, 6));
+
+        } catch (err) {
+            console.error("Error loading schemes:", err);
+        }
+    };
+
+    loadSchemes();
+}, []);
 
     // API call to fetch live news related to government schemes and policies, with error handling and loading state
   useEffect(() => {
@@ -72,7 +86,7 @@ if (response.data.status === "success") {
             {/* Sidebar */}
             <aside className="gov-sidebar">
                 <div className="gov-logo">
-                    <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
+                    <img src={logo} alt="Logo" className="logo-img" />
                 </div>
                 <nav className="gov-icons">
                     <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>

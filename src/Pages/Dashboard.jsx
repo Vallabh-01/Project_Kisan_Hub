@@ -3,15 +3,14 @@ import "./Dashboard.css";
 import { Link } from "react-router-dom";
 import MandiPriceGraph from "../Components/MandiPriceGraph";
 import DistrictSelect from "../Components/DistrictSelect";
-import schemesData from '../Data/gov-schemes.json';
 import getWeatherIcon from "../utils/getWeatherIcon";
 import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-icons/fa";
 import { useLocationContext } from "../context/LocationContext";
-import quotes from "../Data/quotes.json";
 import logo from "../assets/logo_only.png";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
+  const [quotes, setQuotes] = useState([]);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
@@ -29,13 +28,29 @@ const Dashboard = () => {
  
    // Fetch daily quote from local JSON file, with error handling and fallback message
   useEffect(() => {
+  const loadQuotes = async () => {
+    try {
+      const res = await fetch("/data/quotes.json");
+      const data = await res.json();
+      setQuotes(data);
+    } catch (err) {
+      console.error("Error loading quotes:", err);
+    }
+  };
+
+  loadQuotes();
+}, []);
+
+useEffect(() => {
+  if (quotes.length === 0) return;
+
   const interval = setInterval(() => {
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     setQuote(randomQuote);
   }, 10000);
 
   return () => clearInterval(interval);
-}, []);
+}, [quotes]);
 
   // fetch districts from local JSON file and set in state for dropdown, also handle errors if file fails to load
   useEffect(() => {
@@ -138,10 +153,22 @@ const Dashboard = () => {
 
   // Randomly select 3 schemes from combined central and state schemes, with useEffect dependency on schemesData to ensure it runs after data is loaded
   useEffect(() => {
-    const allSchemes = schemesData.government_schemes.flatMap(item => item.schemes);
-    const shuffled = allSchemes.sort(() => 0.5 - Math.random());
-    setSchemes(shuffled.slice(0, 3));
-  }, []);
+  const loadSchemes = async () => {
+    try {
+      const res = await fetch("/data/gov-schemes.json");
+      const data = await res.json();
+
+      const allSchemes = data.government_schemes.flatMap(item => item.schemes);
+      const shuffled = allSchemes.sort(() => 0.5 - Math.random());
+
+      setSchemes(shuffled.slice(0, 3));
+    } catch (err) {
+      console.error("Error loading schemes:", err);
+    }
+  };
+
+  loadSchemes();
+}, []);
 
   return (
     <div className="dashboard-container">

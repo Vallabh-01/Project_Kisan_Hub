@@ -7,6 +7,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import mandiData from "../Data/maharashtra-mandi-full.json";
+import logo from "../assets/logo_only.png";
 import {
   FaTachometerAlt,
   FaCloudSun,
@@ -140,7 +141,7 @@ const UserProfile = () => {
 
       <aside className="profile-sidebar">
         <div className="profile-logo">
-          <img src="src/assets/logo_only.png" alt="Logo" />
+          <img src={logo} alt="Logo" />
         </div>
 
         <nav className="profile-icons">

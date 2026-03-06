@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./MandiPrices.css";
+import logo from "../assets/logo_only.png";
 import {
     FaTachometerAlt,
     FaCloudSun,
@@ -59,8 +60,11 @@ const MandiPrices = () => {
                 ];
                 setDistricts(uniqueDistricts);
 
+                if (!district) return;
+
                 const filtered = data.filter(
-                    (entry) => entry.District.toLowerCase() === district.toLowerCase(),
+                    (entry) =>
+                        entry.District.toLowerCase() === district.toLowerCase()
                 );
                 setMandiData(filtered.slice(0, 6));
             })
@@ -71,7 +75,7 @@ const MandiPrices = () => {
         <div className="mandi-container">
             <aside className="Mandi-sidebar">
                 <div className="Mandi-logo">
-                    <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
+                    <img src={logo} alt="Logo" className="logo-img" />
                 </div>
                 <nav className="Mandi-icons">
                     <Link to="/dashboard" data-label="Dashboard">
