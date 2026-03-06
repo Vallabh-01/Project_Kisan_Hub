@@ -3,79 +3,85 @@ import express from "express";
 import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 5000;
 
-//  NewsData API for Dashboard Agricuolture News 
+/* Needed for ES module path */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/* ---------------- API ROUTES ---------------- */
+
+// Agriculture News
 app.get("/api/agri-news", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://newsdata.io/api/1/news",
-      {
-        params: {
-          apikey: process.env.VITE_NEWS_API_KEY,
-          q: "Maharashtra",
-          country: "in",
-          language: "en",
-        },
-      }
-    );
+    const response = await axios.get("https://newsdata.io/api/1/news", {
+      params: {
+        apikey: process.env.VITE_NEWS_API_KEY,
+        q: "Maharashtra",
+        country: "in",
+        language: "en",
+      },
+    });
 
     res.json(response.data);
   } catch (error) {
-    console.error("Agri News Error:", error.response?.data || error.message);
+    console.error("Agri News Error:", error.message);
     res.status(500).json({ error: "Failed to fetch agriculture news" });
   }
 });
 
-//  GNews API for Government Schemes News
-
+// Government Scheme News
 app.get("/api/scheme-news", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://gnews.io/api/v4/search",
-      {
-        params: {
-          q: "government scheme",
-          lang: "en",
-          country: "in",
-          max: 10,
-          token: process.env.VITE_GNEWS_API_KEY,
-        },
-      }
-    );
+    const response = await axios.get("https://gnews.io/api/v4/search", {
+      params: {
+        q: "government scheme",
+        lang: "en",
+        country: "in",
+        max: 10,
+        token: process.env.VITE_GNEWS_API_KEY,
+      },
+    });
 
-    // GNews API returns "articles"
     let results = response.data.articles || [];
 
-    //  Filter for India or Maharashtra
-    results = results.filter(article => {
+    results = results.filter((article) => {
       const content =
         `${article.title || ""} ${article.description || ""}`.toLowerCase();
 
-      return (
-        content.includes("india") ||
-        content.includes("maharashtra")
-      );
+      return content.includes("india") || content.includes("maharashtra");
     });
 
     res.json({
       status: "success",
-      results
+      results,
     });
-
   } catch (error) {
-    console.error("Scheme News Error:", error.response?.data || error.message);
+    console.error("Scheme News Error:", error.message);
     res.status(500).json({ error: "Failed to fetch scheme news" });
   }
 });
 
+/* ---------------- SERVE REACT BUILD ---------------- */
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
+app.use(express.static(path.join(__dirname, "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+/* ---------------- START SERVER ---------------- */
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
