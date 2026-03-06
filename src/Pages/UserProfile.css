@@ -136,6 +136,91 @@
   font-size: 15px;
 }
 
+.profile-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-form {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  width: 600px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.profile-grid input,
+.profile-grid select,
+.date-picker {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.profile-grid input:focus,
+.profile-grid select:focus {
+  border-color: #2F5D50;
+  outline: none;
+}
+
+.profile-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  margin: auto;
+}
+
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-text {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 6px;
+  color: #555;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.button-row button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background: #2F5D50;
+  color: white;
+}
+
+.logout-btn {
+  background: #e74c3c;
+  color: white;
+}
+
 /* Save Button */
 .button-row {
   display: flex;

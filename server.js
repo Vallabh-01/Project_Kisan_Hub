@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 
-//  Dashboard – Agriculture News (NewsData API)
+//  NewsData API for Dashboard Agricuolture News 
 app.get("/api/agri-news", async (req, res) => {
   try {
     const response = await axios.get(
@@ -33,7 +33,7 @@ app.get("/api/agri-news", async (req, res) => {
   }
 });
 
-// 2️⃣ GovSchemes Page – Government Scheme News (GNews)
+//  GNews API for Government Schemes News
 
 app.get("/api/scheme-news", async (req, res) => {
   try {
@@ -50,10 +50,10 @@ app.get("/api/scheme-news", async (req, res) => {
       }
     );
 
-    // ✅ GNews returns "articles"
+    // GNews API returns "articles"
     let results = response.data.articles || [];
 
-    // ✅ Filter for India or Maharashtra
+    //  Filter for India or Maharashtra
     results = results.filter(article => {
       const content =
         `${article.title || ""} ${article.description || ""}`.toLowerCase();

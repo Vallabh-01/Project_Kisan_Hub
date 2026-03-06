@@ -1,7 +1,7 @@
 // MandiPrices.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import './MandiPrices.css';
+import "./MandiPrices.css";
 import {
     FaTachometerAlt,
     FaCloudSun,
@@ -17,11 +17,10 @@ import {
     PointElement,
     Tooltip,
     Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 import DistrictSelect from "../Components/DistrictSelect";
-import { useLocationContext } from "../context/LocationContext";   // ✅ ADD THIS
-
+import { useLocationContext } from "../context/LocationContext";
 
 ChartJS.register(
     LineElement,
@@ -29,9 +28,8 @@ ChartJS.register(
     LinearScale,
     PointElement,
     Tooltip,
-    Legend
+    Legend,
 );
-
 
 const MandiPrices = () => {
     const [mandiData, setMandiData] = useState([]);
@@ -42,21 +40,27 @@ const MandiPrices = () => {
             .then((data) => setTips(data))
             .catch((err) => console.error("Error loading tips:", err));
     }, []);
+
     const getCropTip = (commodity) => {
         const key = commodity?.toLowerCase();
         return tips[key] || "Follow best practices to increase yield.";
     };
+
+    // fetch data from local JSON file and extract unique districts for dropdown, also filter mandi data based on selected district
+
     const [districts, setDistricts] = useState([]);
     const { district, setDistrict } = useLocationContext();
     useEffect(() => {
         fetch("/src/Data/maharashtra-mandi-full.json")
             .then((res) => res.json())
             .then((data) => {
-                const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
+                const uniqueDistricts = [
+                    ...new Set(data.map((entry) => entry.District)),
+                ];
                 setDistricts(uniqueDistricts);
 
                 const filtered = data.filter(
-                    (entry) => entry.District.toLowerCase() === district.toLowerCase()
+                    (entry) => entry.District.toLowerCase() === district.toLowerCase(),
                 );
                 setMandiData(filtered.slice(0, 6));
             })
@@ -70,11 +74,22 @@ const MandiPrices = () => {
                     <img src="src/assets/logo_only.png" alt="Logo" className="logo-img" />
                 </div>
                 <nav className="Mandi-icons">
-                    <Link to="/dashboard" data-label="Dashboard"><FaTachometerAlt /></Link>
-                    <Link to="/weather" data-label="Weather"><FaCloudSun /></Link>
-                    <Link to="/MandiPrices"> <FaStore className="active" data-label="Mandi Prices" /></Link>
-                    <Link to="/GovSchemes" data-label="Schemes"><FaLandmark /></Link>
-                    <Link to="/userprofile" data-label="Profile"><FaCog /></Link>
+                    <Link to="/dashboard" data-label="Dashboard">
+                        <FaTachometerAlt />
+                    </Link>
+                    <Link to="/weather" data-label="Weather">
+                        <FaCloudSun />
+                    </Link>
+                    <Link to="/MandiPrices">
+                        {" "}
+                        <FaStore className="active" data-label="Mandi Prices" />
+                    </Link>
+                    <Link to="/GovSchemes" data-label="Schemes">
+                        <FaLandmark />
+                    </Link>
+                    <Link to="/userprofile" data-label="Profile">
+                        <FaCog />
+                    </Link>
                 </nav>
             </aside>
 
@@ -102,13 +117,19 @@ const MandiPrices = () => {
                                 const today = prices["Jul 16"];
                                 const yesterday = prices["Jul 15"];
                                 const change = today - yesterday;
-                                const changeClass = change > 0 ? "green" : change < 0 ? "red" : "gray";
+                                const changeClass =
+                                    change > 0 ? "green" : change < 0 ? "red" : "gray";
                                 return (
                                     <div key={idx} className="table-row">
-                                        <span className="crop-name">{item.Commodity} ({item.Variety})</span>
+                                        <span className="crop-name">
+                                            {item.Commodity} ({item.Variety})
+                                        </span>
                                         <span>₹{today}</span>
                                         <span>₹{yesterday}</span>
-                                        <span className={changeClass}>{change > 0 ? '+' : ''}{change}</span>
+                                        <span className={changeClass}>
+                                            {change > 0 ? "+" : ""}
+                                            {change}
+                                        </span>
                                     </div>
                                 );
                             })}
@@ -116,20 +137,25 @@ const MandiPrices = () => {
                     </div>
                 </section>
 
+                {/* Shows Graph of the mandi prices */}
                 <section className="price-trend-section">
                     <div className="trend-card">
                         <h3>Price Trend (last 7 days)</h3>
                         {mandiData.length > 0 ? (
-                            <div style={{ height: '120px' }}>
+                            <div style={{ height: "120px" }}>
                                 <Line
                                     data={{
                                         labels: Object.keys(mandiData[0].Prices),
                                         datasets: [
                                             {
-                                                label: mandiData[0].Commodity + ' (' + mandiData[0].Variety + ')',
+                                                label:
+                                                    mandiData[0].Commodity +
+                                                    " (" +
+                                                    mandiData[0].Variety +
+                                                    ")",
                                                 data: Object.values(mandiData[0].Prices),
-                                                borderColor: '#2e4e46',
-                                                backgroundColor: 'rgba(46, 78, 70, 0.2)',
+                                                borderColor: "#2e4e46",
+                                                backgroundColor: "rgba(46, 78, 70, 0.2)",
                                                 fill: true,
                                                 tension: 0.3,
                                             },
@@ -164,9 +190,7 @@ const MandiPrices = () => {
                             <p>Loading tips...</p>
                         )}
                     </div>
-
                 </section>
-
             </main>
         </div>
     );

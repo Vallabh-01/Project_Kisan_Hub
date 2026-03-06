@@ -17,7 +17,7 @@ const GovSchemes = () => {
     const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
 
     useEffect(() => {
-        // Flatten both central and state schemes into one array
+        // Flatten both central and state schemes into one array with type info, then take first 6 for display
         const combined = [];
         govSchemesData.government_schemes.forEach(group => {
             group.schemes.forEach(scheme => {
@@ -27,9 +27,10 @@ const GovSchemes = () => {
                 });
             });
         });
-        setSchemes(combined.slice(0, 6)); // show only first 6
+        setSchemes(combined.slice(0, 6)); // show only first 6 schemes
     }, []);
 
+    // API call to fetch live news related to government schemes and policies, with error handling and loading state
   useEffect(() => {
   const fetchNews = async () => {
     try {
@@ -55,6 +56,7 @@ if (response.data.status === "success") {
   fetchNews();
 }, []);
 
+   // Auto-rotate news every 6 seconds, with cleanup to prevent memory leaks
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentNewsIndex(prev =>
@@ -107,7 +109,6 @@ if (response.data.status === "success") {
                     </div>
                 </section>
 
-
                 <section className="related-news-section">
                     <h2>Scheme & Policy Highlights</h2>
                     <div className="news-card">
@@ -126,7 +127,6 @@ if (response.data.status === "success") {
                             <p>Loading News...</p>
                         )}
                     </div>
-
 
                 </section>
             </main>

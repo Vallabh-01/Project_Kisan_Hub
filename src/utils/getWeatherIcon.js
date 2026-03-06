@@ -1,3 +1,4 @@
+// Importing weather icons for different weather conditions and times of day
 import clearDay from "../assets/weather-icons/clear-day.png";
 import clearNight from "../assets/weather-icons/clear-night.png";
 import clouds from "../assets/weather-icons/clouds.png";

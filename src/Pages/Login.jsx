@@ -28,7 +28,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, fakeEmail, password);
       setMessage("✅ Login successful!");
-      setTimeout(() => navigate("/dashboard"), 2000); // redirect to homepage or dashboard
+      setTimeout(() => navigate("/dashboard"), 2000);  // redirect to dashboard after 2 seconds
     } catch (err) {
       if (err.code === "auth/network-request-failed") {
         setError("⚠️ Network error. Please check your internet connection.");

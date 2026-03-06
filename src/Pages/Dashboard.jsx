@@ -7,6 +7,7 @@ import schemesData from '../Data/gov-schemes.json';
 import getWeatherIcon from "../utils/getWeatherIcon";
 import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-icons/fa";
 import { useLocationContext } from "../context/LocationContext";
+import quotes from "../Data/quotes.json";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
@@ -21,29 +22,21 @@ const Dashboard = () => {
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
 
   const handleSelectDistrict = (value) => {
-  setDistrict(value);   // ✅ use context setter
+  setDistrict(value);   //  use context setter
   setShowLocationModal(false);
 };
-
+ 
+   // Fetch daily quote from local JSON file, with error handling and fallback message
   useEffect(() => {
-    const fetchQuote = async () => {
-      try {
-        const res = await fetch("/api/quotes/today");
-        const data = await res.json();
-        if (data && data[0]?.q) {
-          setQuote(`${data[0].q} — ${data[0].a}`);
-        } else {
-          setQuote("Stay positive and keep growing! 🌱");
-        }
-      } catch (error) {
-        console.error("Quote fetch failed:", error);
-        setQuote("Grow with consistency. 🌾");
-      }
-    };
+  const interval = setInterval(() => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    setQuote(randomQuote);
+  }, 10000);
 
-    fetchQuote();
-  }, []);
+  return () => clearInterval(interval);
+}, []);
 
+  // fetch districts from local JSON file and set in state for dropdown, also handle errors if file fails to load
   useEffect(() => {
     fetch("/src/Data/maharashtra-mandi-full.json")
       .then(res => res.json())
@@ -54,6 +47,7 @@ const Dashboard = () => {
       .catch(err => console.error("Failed to load districts:", err));
   }, []);
 
+  // fetch weather data based on selected district, with error handling and loading state
   useEffect(() => {
     const fetchWeather = async () => {
       try {
@@ -93,6 +87,7 @@ const Dashboard = () => {
     fetchWeather();
 }, [district]);
 
+  // fetch mandi price data based on selected district, with error handling and loading state
   useEffect(() => {
     fetch("/src/Data/maharashtra-mandi-full.json")
       .then((res) => res.json())
@@ -105,8 +100,7 @@ const Dashboard = () => {
       .catch((err) => console.error("Mandi fetch error:", err));
  }, [district]);
 
-  // console.log("API KEY:", import.meta.env.VITE_NEWS_API_KEY);
-
+  // fetch agriculture news alerts from backend API, with error handling and loading state
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
@@ -128,6 +122,7 @@ const Dashboard = () => {
     fetchAlerts();
   }, []);
 
+  // Auto-rotate agriculture news alerts every 5 seconds, with cleanup to prevent memory leaks
   useEffect(() => {
     if (alerts.length === 0) return;
 
@@ -140,6 +135,7 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [alerts]);
 
+  // Randomly select 3 schemes from combined central and state schemes, with useEffect dependency on schemesData to ensure it runs after data is loaded
   useEffect(() => {
     const allSchemes = schemesData.government_schemes.flatMap(item => item.schemes);
     const shuffled = allSchemes.sort(() => 0.5 - Math.random());
@@ -164,6 +160,7 @@ const Dashboard = () => {
           <Link to="/GovSchemes"><FaLandmark className="icon" /> Gov. Schemes</Link>
           <Link to="/userprofile"><FaCog className="icon" /> Profile</Link>
         </nav>
+
         <div className="quote-box">
           <strong>🌱 Quote of the Day</strong>
           <p style={{ fontSize: "0.9rem", marginTop: "5px" }}>{quote}</p>
@@ -174,10 +171,10 @@ const Dashboard = () => {
         <div className="top-bar">
           <div className="location-display">
             <DistrictSelect
-  districts={districts}
-  selectedDistrict={district}
-  onChange={e => setDistrict(e.target.value)}
-/>
+              districts={districts}
+              selectedDistrict={district}
+              onChange={e => setDistrict(e.target.value)}
+            />
           </div>
         </div>
 
@@ -189,7 +186,7 @@ const Dashboard = () => {
                 <button
                   key={district}
                   onClick={() => handleSelectDistrict(district)}
-                  className={district === district ? "active" : ""}                 
+                  className={district === district ? "active" : ""}
                 >
                   {item}
                   {district}
@@ -281,7 +278,7 @@ const Dashboard = () => {
               )}
             </div>
 
-            {/* Schemes — Only 3 Fixed Cards */}
+            {/* Schemes Cards — Only 3 Fixed Cards  */}
             <div className="card tall">
               {schemes[0] ? (
                 <a href={schemes[0].link} target="_blank" rel="noopener noreferrer">
@@ -312,8 +309,6 @@ const Dashboard = () => {
               )}
             </div>
           </div>
-
-
         </div>
       </main>
     </div>

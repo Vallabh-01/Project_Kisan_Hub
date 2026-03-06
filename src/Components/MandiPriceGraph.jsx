@@ -13,6 +13,7 @@ import mandiData from "../Data/maharashtra-mandi-full.json";
 const MandiPriceGraph = ({ district }) => {
   const [chartData, setChartData] = useState([]);
 
+   // fetch data from local JSON file and extract unique districts for dropdown, also filter mandi data based on selected district
   useEffect(() => {
     const entries = mandiData.filter(
       (item) => item.District?.toLowerCase() === district.toLowerCase()

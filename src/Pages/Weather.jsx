@@ -4,13 +4,7 @@ import React, { useState, useEffect } from "react";
 import "./Weather.css";
 import { Link, useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import {
-  FaTachometerAlt,
-  FaCloudSun,
-  FaStore,
-  FaLandmark,
-  FaCog,
-} from "react-icons/fa";
+import { FaTachometerAlt,FaCloudSun,FaStore,FaLandmark,FaCog} from "react-icons/fa";
 import clearDay from "../assets/weather-icons/clear-day.png";
 import clearNight from "../assets/weather-icons/clear-night.png";
 import clouds from "../assets/weather-icons/clouds.png";
@@ -67,7 +61,7 @@ const Weather = () => {
       .catch(err => console.error("Failed to load districts:", err));
   }, []);
 
-  // Fetch current weather and forecast
+  // Fetch current weather and forecast from OpenWeatherMap API
   useEffect(() => {
     const fetchWeather = async () => {
       try {
@@ -77,7 +71,7 @@ const Weather = () => {
         const data = await res.json();
         if (res.ok) {
           setWeather(data);
-          // Extract sun/moon data
+          // Extract sun/moon data from API response
           setSunMoonData({
             sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-IN', {
               hour: '2-digit',
@@ -89,21 +83,21 @@ const Weather = () => {
             })
           });
         }
-
+       // Fetch 5-day forecast From OpenWeatherMap API
         const forecastRes = await fetch(
           `https://api.openweathermap.org/data/2.5/forecast?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
         );
         const forecastData = await forecastRes.json();
 
         if (forecastRes.ok) {
-          // Get 5-day forecast
+          // Get 5-day's forecast from API response (one entry per day)
           const dailyForecasts = [];
           const seenDates = new Set();
 
           const today = new Date().toISOString().split("T")[0];
           for (let item of forecastData.list) {
             const date = item.dt_txt.split(" ")[0];
-            if (date === today) continue; // Skip today
+            if (date === today) continue; // Skip today 
             if (!seenDates.has(date)) {
               dailyForecasts.push(item);
               seenDates.add(date);
@@ -116,7 +110,8 @@ const Weather = () => {
           const currentTime = new Date();
           const historicalData = [];
 
-          for (let i = 0; i < Math.min(forecastData.list.length, 32); i += 8) { // Every 8th entry is roughly 1 day (3-hour intervals)
+           // Every 8th entry is roughly 1 day (3-hour intervals)
+          for (let i = 0; i < Math.min(forecastData.list.length, 32); i += 8) { 
             const item = forecastData.list[i];
             const date = new Date(item.dt * 1000);
             historicalData.push({
@@ -136,7 +131,7 @@ const Weather = () => {
     fetchWeather();
   }, [district]);
 
-  // Fetch weather alerts
+  // Fetch weather alerts from NewsData API if their any 
   useEffect(() => {
     const fetchWeatherAlerts = async () => {
       try {
@@ -295,7 +290,7 @@ const Weather = () => {
             </div>
           </div>
         </div>
-
+           {/* Weather Alerts Section with fallback tip if no alerts are available  */}
         <div className="weather-alert">
           <h3>🚨 Weather Alerts & Updates</h3>
           {weatherAlerts.length > 0 ? (

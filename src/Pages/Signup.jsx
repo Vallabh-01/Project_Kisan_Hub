@@ -9,13 +9,8 @@ import { db } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    password: "",
-  });
-  const navigate = useNavigate(); // initialize navigation
+  const [formData, setFormData] = useState({firstName: "",lastName: "",phone: "",password: ""});
+  const navigate = useNavigate(); // initializing navigation
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -31,7 +26,7 @@ const Signup = () => {
     const fakeEmail = `${formData.phone}@kisanhub.com`;
 
     try {
-      // Create user with email/password
+      // Creates user with email/password
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         fakeEmail,
@@ -39,7 +34,7 @@ const Signup = () => {
       );
       const user = userCredential.user;
 
-      // Save only common data in Firestore
+      // Saves only common data in Firestore database
       await setDoc(doc(db, "users", user.uid), {
         firstName: formData.firstName,
         lastName: formData.lastName,
