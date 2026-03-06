@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import mandiData from "../Data/maharashtra-mandi-full.json";
 import logo from "../assets/logo_only.png";
 import {
   FaTachometerAlt,
@@ -21,6 +20,8 @@ import { DatePicker } from "@progress/kendo-react-dateinputs";
 
 const UserProfile = () => {
   const [dob, setDob] = useState(null);
+  
+  const [districts, setDistricts] = useState([]);
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -38,9 +39,25 @@ const UserProfile = () => {
 
   const navigate = useNavigate();
 
-  const districts = Array.from(
-    new Set(mandiData.map((item) => item.District).filter(Boolean)),
-  ).sort();
+useEffect(() => {
+  const loadDistricts = async () => {
+    try {
+      const res = await fetch("/data/maharashtra-mandi-full.json");
+      const data = await res.json();
+
+      const uniqueDistricts = [
+        ...new Set(data.map((item) => item.District).filter(Boolean))
+      ].sort();
+
+      setDistricts(uniqueDistricts);
+
+    } catch (err) {
+      console.error("Error loading districts:", err);
+    }
+  };
+
+  loadDistricts();
+}, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
