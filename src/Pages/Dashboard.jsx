@@ -104,7 +104,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/agri-news");
+        const response = await fetch("https://digital-kisan-hub.onrender.com/api/agri-news");
         const data = await response.json();
         console.log("Alert Data:", data);
 

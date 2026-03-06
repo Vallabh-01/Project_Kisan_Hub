@@ -35,7 +35,7 @@ const GovSchemes = () => {
   const fetchNews = async () => {
     try {
       const response = await axios.get(
-  "http://localhost:5000/api/scheme-news"
+  "https://digital-kisan-hub.onrender.com/api/scheme-news"
 );
 
 if (response.data.status === "success") {
