@@ -77,11 +77,12 @@ app.get("/api/scheme-news", async (req, res) => {
 /* ---------------- SERVE REACT BUILD ---------------- */
 
 app.use(express.static(path.join(__dirname, "dist")));
+app.use("/data", express.static(path.join(__dirname, "public/data")));
 
-app.get(/.*/, (req, res) => {
+// React SPA fallback (ignore API routes)
+app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
-
 /* ---------------- START SERVER ---------------- */
 
 app.listen(PORT, () => {
