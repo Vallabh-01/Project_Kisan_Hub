@@ -35,7 +35,7 @@ const MandiPrices = () => {
     const [mandiData, setMandiData] = useState([]);
     const [tips, setTips] = useState({});
     useEffect(() => {
-        fetch("/src/Data/tips.json")
+        fetch("/data/tips.json")
             .then((res) => res.json())
             .then((data) => setTips(data))
             .catch((err) => console.error("Error loading tips:", err));
@@ -51,7 +51,7 @@ const MandiPrices = () => {
     const [districts, setDistricts] = useState([]);
     const { district, setDistrict } = useLocationContext();
     useEffect(() => {
-        fetch("/src/Data/maharashtra-mandi-full.json")
+        fetch("/data/maharashtra-mandi-full.json")
             .then((res) => res.json())
             .then((data) => {
                 const uniqueDistricts = [

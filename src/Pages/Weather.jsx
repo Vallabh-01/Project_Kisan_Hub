@@ -52,7 +52,7 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    fetch("/src/Data/maharashtra-mandi-full.json")
+    fetch("/data/maharashtra-mandi-full.json")
       .then(res => res.json())
       .then(data => {
         const uniqueDistricts = [...new Set(data.map(entry => entry.District))];

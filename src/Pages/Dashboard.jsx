@@ -8,6 +8,7 @@ import getWeatherIcon from "../utils/getWeatherIcon";
 import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog, } from "react-icons/fa";
 import { useLocationContext } from "../context/LocationContext";
 import quotes from "../Data/quotes.json";
+import logo from "../assets/logo_only.png";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("Loading...");
@@ -38,7 +39,7 @@ const Dashboard = () => {
 
   // fetch districts from local JSON file and set in state for dropdown, also handle errors if file fails to load
   useEffect(() => {
-    fetch("/src/Data/maharashtra-mandi-full.json")
+    fetch("/data/maharashtra-mandi-full.json")
       .then(res => res.json())
       .then(data => {
         const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
@@ -89,7 +90,7 @@ const Dashboard = () => {
 
   // fetch mandi price data based on selected district, with error handling and loading state
   useEffect(() => {
-    fetch("/src/Data/maharashtra-mandi-full.json")
+    fetch("/data/maharashtra-mandi-full.json")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(
@@ -147,8 +148,7 @@ const Dashboard = () => {
       <aside className="sidebar-dashboard">
         <div className="logo">
           <img
-            src="src/assets/logo_only.png"
-            alt="Smart Kisan Logo"
+            src={logo} alt="logo"
             className="logo-img"
           />
         </div>
