@@ -9,10 +9,11 @@ import { fileURLToPath } from "url";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+const PORT = process.env.PORT || 5000;
 
 /* Needed for ES module path */
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +40,7 @@ app.get("/api/agri-news", async (req, res) => {
   }
 });
 
+
 // Government Scheme News
 app.get("/api/scheme-news", async (req, res) => {
   try {
@@ -58,10 +60,7 @@ app.get("/api/scheme-news", async (req, res) => {
       const content =
         `${article.title || ""} ${article.description || ""}`.toLowerCase();
 
-      return (
-        content.includes("india") ||
-        content.includes("maharashtra")
-      );
+      return content.includes("india") || content.includes("maharashtra");
     });
 
     res.json({
@@ -74,15 +73,20 @@ app.get("/api/scheme-news", async (req, res) => {
   }
 });
 
-/* ---------------- SERVE REACT BUILD ---------------- */
+/* ---------------- STATIC FILES ---------------- */
 
+// React build
 app.use(express.static(path.join(__dirname, "dist")));
+
+// Serve JSON data files
 app.use("/data", express.static(path.join(__dirname, "public/data")));
 
-// React SPA fallback (ignore API routes)
+/* ---------------- SPA FALLBACK ---------------- */
+
 app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
+
 /* ---------------- START SERVER ---------------- */
 
 app.listen(PORT, () => {
