@@ -9,11 +9,10 @@ import { fileURLToPath } from "url";
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-
-const PORT = process.env.PORT || 5000;
 
 /* Needed for ES module path */
 const __filename = fileURLToPath(import.meta.url);
@@ -59,7 +58,10 @@ app.get("/api/scheme-news", async (req, res) => {
       const content =
         `${article.title || ""} ${article.description || ""}`.toLowerCase();
 
-      return content.includes("india") || content.includes("maharashtra");
+      return (
+        content.includes("india") ||
+        content.includes("maharashtra")
+      );
     });
 
     res.json({
@@ -76,9 +78,11 @@ app.get("/api/scheme-news", async (req, res) => {
 
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.get("/*", (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
+
+/* ---------------- START SERVER ---------------- */
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
