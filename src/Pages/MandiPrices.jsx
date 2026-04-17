@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./MandiPrices.css";
+import { Filler } from "chart.js";
 import logo from "../assets/logo_only.png";
 import {
     FaTachometerAlt,
@@ -30,6 +31,7 @@ ChartJS.register(
     PointElement,
     Tooltip,
     Legend,
+    Filler
 );
 
 const MandiPrices = () => {
@@ -119,8 +121,8 @@ const MandiPrices = () => {
                             {mandiData.map((item, idx) => {
                                 const prices = item.Prices;
                                 const dates = Object.keys(prices);
-const today = prices[dates[dates.length - 1]];
-const yesterday = prices[dates[dates.length - 2]];
+                                const today = prices[dates[dates.length - 1]];
+                                const yesterday = prices[dates[dates.length - 2]];
                                 const change = today - yesterday;
                                 const changeClass =
                                     change > 0 ? "green" : change < 0 ? "red" : "gray";

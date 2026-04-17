@@ -247,14 +247,17 @@ useEffect(() => {
 
               <div className="card small mandi-prices-card">
                 <div className="mandi-row">
-                  {mandiData.length > 0 ? mandiData.map((item, index) => (
-                    <div key={index} className="mandi-block">
-                      <div className="commodity">{item.Commodity} ({item.Variety})</div>
-                      const latestDate = Object.keys(item.Prices).slice(-1)[0];
-                       <div className="price">₹{item.Prices[latestDate]}</div>
-                      <div className="market">{item["Mandi Name"]}</div>
-                    </div>
-                  )) : <p>Loading...</p>}
+                  {mandiData.length > 0 ? mandiData.map((item, index) => {
+  const latestDate = Object.keys(item.Prices).slice(-1)[0];
+
+  return (
+    <div key={index} className="mandi-block">
+      <div className="commodity">{item.Commodity} ({item.Variety})</div>
+      <div className="price">₹{item.Prices[latestDate]}</div>
+      <div className="market">{item["Mandi Name"]}</div>
+    </div>
+  );
+}) : <p>Loading...</p>}
                 </div>
               </div>
             </div>
