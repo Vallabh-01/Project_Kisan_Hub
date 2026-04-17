@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
@@ -249,7 +250,8 @@ useEffect(() => {
                   {mandiData.length > 0 ? mandiData.map((item, index) => (
                     <div key={index} className="mandi-block">
                       <div className="commodity">{item.Commodity} ({item.Variety})</div>
-                      <div className="price">₹{item.Prices["Jul 16"]}</div>
+                      const latestDate = Object.keys(item.Prices).slice(-1)[0];
+                       <div className="price">₹{item.Prices[latestDate]}</div>
                       <div className="market">{item["Mandi Name"]}</div>
                     </div>
                   )) : <p>Loading...</p>}

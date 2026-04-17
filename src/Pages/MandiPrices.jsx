@@ -118,8 +118,9 @@ const MandiPrices = () => {
                         <div className="table-rows">
                             {mandiData.map((item, idx) => {
                                 const prices = item.Prices;
-                                const today = prices["Jul 16"];
-                                const yesterday = prices["Jul 15"];
+                                const dates = Object.keys(prices);
+const today = prices[dates[dates.length - 1]];
+const yesterday = prices[dates[dates.length - 2]];
                                 const change = today - yesterday;
                                 const changeClass =
                                     change > 0 ? "green" : change < 0 ? "red" : "gray";
