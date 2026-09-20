@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import logo from "../assets/logo_only.png";
 import "./Weather.css";
 import { Link, useNavigate } from "react-router-dom";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { FaTachometerAlt,FaCloudSun,FaStore,FaLandmark,FaCog} from "react-icons/fa";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { FaTachometerAlt, FaCloudSun, FaStore, FaLandmark, FaCog } from "react-icons/fa";
 import clearDay from "../assets/weather-icons/clear-day.png";
 import clearNight from "../assets/weather-icons/clear-night.png";
 import clouds from "../assets/weather-icons/clouds.png";
@@ -33,10 +33,11 @@ const Weather = () => {
   const [historicalWeather, setHistoricalWeather] = useState([]);
   const [districts, setDistricts] = useState([]);
   const { district, setDistrict } = useLocationContext();
+
   const handleChangeLocation = () => setShowLocationModal(!showLocationModal);
 
-  const handleSelectDistrict = (district) => {
-    setDistrict(district);
+  const handleSelectDistrict = (selectedDistrict) => {
+    setDistrict(selectedDistrict);
     setShowLocationModal(false);
   };
 
@@ -54,100 +55,127 @@ const Weather = () => {
 
   useEffect(() => {
     fetch("/data/maharashtra-mandi-full.json")
-      .then(res => res.json())
-      .then(data => {
-        const uniqueDistricts = [...new Set(data.map(entry => entry.District))];
+      .then((res) => res.json())
+      .then((data) => {
+        const uniqueDistricts = [
+          ...new Set(data.map((entry) => entry.District)),
+        ];
         setDistricts(uniqueDistricts);
       })
-      .catch(err => console.error("Failed to load districts:", err));
+      .catch((err) => console.error("Failed to load districts:", err));
   }, []);
 
-  // Fetch current weather and forecast from OpenWeatherMap API
+  // Fetch current weather and forecast through the backend so API credentials never reach the browser.
   useEffect(() => {
     const fetchWeather = async () => {
       try {
+        const districtParam = encodeURIComponent(district);
+
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+          `/api/weather/current?district=${districtParam}`
         );
-        const data = await res.json();
-        if (res.ok) {
-          setWeather(data);
-          // Extract sun/moon data from API response
-          setSunMoonData({
-            sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-IN', {
-              hour: '2-digit',
-              minute: '2-digit'
-            }),
-            sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString('en-IN', {
-              hour: '2-digit',
-              minute: '2-digit'
-            })
-          });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch current weather");
         }
-       // Fetch 5-day forecast From OpenWeatherMap API
+
+        const data = await res.json();
+
+        setWeather(data);
+        setSunMoonData({
+          sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString(
+            "en-IN",
+            {
+              hour: "2-digit",
+              minute: "2-digit",
+            }
+          ),
+          sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString(
+            "en-IN",
+            {
+              hour: "2-digit",
+              minute: "2-digit",
+            }
+          ),
+        });
+
         const forecastRes = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${district}&units=metric&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+          `/api/weather/forecast?district=${districtParam}`
         );
+
+        if (!forecastRes.ok) {
+          throw new Error("Failed to fetch weather forecast");
+        }
+
         const forecastData = await forecastRes.json();
 
-        if (forecastRes.ok) {
-          // Get 5-day's forecast from API response (one entry per day)
-          const dailyForecasts = [];
-          const seenDates = new Set();
+        // Get 5-day's forecast from OpenWeatherMap response (one entry per day).
+        const dailyForecasts = [];
+        const seenDates = new Set();
 
-          const today = new Date().toISOString().split("T")[0];
-          for (let item of forecastData.list) {
-            const date = item.dt_txt.split(" ")[0];
-            if (date === today) continue; // Skip today 
-            if (!seenDates.has(date)) {
-              dailyForecasts.push(item);
-              seenDates.add(date);
-            }
-            if (dailyForecasts.length === 5) break;
-          }
-          setForecast(dailyForecasts);
+        const today = new Date().toISOString().split("T")[0];
 
-          // Get historical data for temperature graph (last 4 days)
-          const currentTime = new Date();
-          const historicalData = [];
+        for (const item of forecastData.list || []) {
+          const date = item.dt_txt.split(" ")[0];
 
-           // Every 8th entry is roughly 1 day (3-hour intervals)
-          for (let i = 0; i < Math.min(forecastData.list.length, 32); i += 8) { 
-            const item = forecastData.list[i];
-            const date = new Date(item.dt * 1000);
-            historicalData.push({
-              name: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }),
-              temperature: Math.round(item.main.temp),
-              date: date.toISOString().split('T')[0]
-            });
+          if (date === today) continue;
+
+          if (!seenDates.has(date)) {
+            dailyForecasts.push(item);
+            seenDates.add(date);
           }
 
-          setHistoricalWeather(historicalData.slice(0, 4));
+          if (dailyForecasts.length === 5) break;
         }
+
+        setForecast(dailyForecasts);
+
+        // Existing chart behavior retained for now.
+        const historicalData = [];
+
+        for (
+          let i = 0;
+          i < Math.min((forecastData.list || []).length, 32);
+          i += 8
+        ) {
+          const item = forecastData.list[i];
+          const date = new Date(item.dt * 1000);
+
+          historicalData.push({
+            name: date.toLocaleDateString("en-IN", {
+              month: "short",
+              day: "numeric",
+            }),
+            temperature: Math.round(item.main.temp),
+            date: date.toISOString().split("T")[0],
+          });
+        }
+
+        setHistoricalWeather(historicalData.slice(0, 4));
       } catch (err) {
         console.error("Weather fetch error:", err);
+        setWeather(null);
+        setForecast([]);
+        setSunMoonData(null);
+        setHistoricalWeather([]);
       }
     };
 
     fetchWeather();
   }, [district]);
 
-  // Fetch weather alerts from NewsData API if their any 
+  // Fetch weather-related news through the backend so the NewsData API key never reaches the browser.
   useEffect(() => {
     const fetchWeatherAlerts = async () => {
       try {
-        const response = await fetch(
-          `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWS_API_KEY}&q=weather%20alert%20OR%20storm%20OR%20cyclone%20OR%20rain%20warning&country=in&language=en`
-        );
-        const data = await response.json();
+        const response = await fetch("/api/weather-alerts");
 
-        if (data?.results?.length > 0) {
-          const filtered = data.results.filter(item => {
-            const content = `${item.title} ${item.description}`.toLowerCase();
-            return content.includes("maharashtra") || content.includes("weather");
-          });
-          setWeatherAlerts(filtered.slice(0, 3));
+        if (!response.ok) {
+          throw new Error("Failed to fetch weather alerts");
         }
+
+        const data = await response.json();
+        setWeatherAlerts(data?.results?.slice(0, 3) || []);
       } catch (err) {
         console.error("Error fetching weather alerts:", err);
         setWeatherAlerts([]);
@@ -206,7 +234,6 @@ const Weather = () => {
           <Link to="/MandiPrices" data-label="Mandi Prices"><FaStore /></Link>
           <Link to="/GovSchemes" data-label="Schemes"><FaLandmark /></Link>
           <Link to="/userprofile" data-label="Profile"><FaCog /></Link>
-
         </nav>
       </aside>
 
@@ -244,9 +271,9 @@ const Weather = () => {
                   <img
                     src={getWeatherIcon(
                       weather?.weather?.[0]?.icon,
-                      weather?.weather[0]?.main
+                      weather?.weather?.[0]?.main
                     )}
-                    alt={weather?.weather[0]?.main}
+                    alt={weather?.weather?.[0]?.main}
                     className="custom-weather-icon"
                   />
                 </div>
@@ -291,7 +318,7 @@ const Weather = () => {
             </div>
           </div>
         </div>
-           {/* Weather Alerts Section with fallback tip if no alerts are available  */}
+
         <div className="weather-alert">
           <h3>🚨 Weather Alerts & Updates</h3>
           {weatherAlerts.length > 0 ? (
@@ -306,7 +333,10 @@ const Weather = () => {
             </div>
           ) : (
             <div className="weather-tip">
-              <p>💡 Check weather conditions before planning outdoor activities and stay hydrated during hot weather.</p>
+              <p>
+                💡 Check weather conditions before planning outdoor activities
+                and stay hydrated during hot weather.
+              </p>
             </div>
           )}
         </div>
@@ -314,7 +344,6 @@ const Weather = () => {
         <div className="weather-bottom-cards">
           <div className="left-cards">
             <div className="weather-card-left">
-              {/* <h4>☀️ Sunrise and Sunset</h4> */}
               {sunMoonData ? (
                 <div>
                   <p>🌅 Sunrise: {sunMoonData.sunrise}</p>
@@ -326,7 +355,6 @@ const Weather = () => {
             </div>
 
             <div className="weather-card-left">
-              {/* <h4>🌙 Moon Phase Info</h4> */}
               {weather ? (
                 <div>
                   <p>🌡️ Night Temp: {Math.round(weather.main.temp_min)}°C</p>
@@ -354,18 +382,18 @@ const Weather = () => {
                     axisLine={false}
                   />
                   <YAxis
-                    domain={['dataMin - 2', 'dataMax + 2']}
+                    domain={["dataMin - 2", "dataMax + 2"]}
                     tick={{ fontSize: 10 }}
                     axisLine={false}
-                    label={{ value: '°C', angle: -90, position: 'insideLeft' }}
+                    label={{ value: "°C", angle: -90, position: "insideLeft" }}
                   />
                   <Tooltip
-                    formatter={(value) => [`${value}°C`, 'Temperature']}
-                    labelStyle={{ color: '#333' }}
+                    formatter={(value) => [`${value}°C`, "Temperature"]}
+                    labelStyle={{ color: "#333" }}
                     contentStyle={{
-                      backgroundColor: '#f8f9fa',
-                      border: '1px solid #0a812a',
-                      borderRadius: '4px'
+                      backgroundColor: "#f8f9fa",
+                      border: "1px solid #0a812a",
+                      borderRadius: "4px",
                     }}
                   />
                   <Line
@@ -373,8 +401,8 @@ const Weather = () => {
                     dataKey="temperature"
                     stroke="#0a812a"
                     strokeWidth={2}
-                    dot={{ fill: '#0a812a', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#0a812a', strokeWidth: 2 }}
+                    dot={{ fill: "#0a812a", strokeWidth: 2, r: 4 }}
+                    activeDot={{ r: 6, stroke: "#0a812a", strokeWidth: 2 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
